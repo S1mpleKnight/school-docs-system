@@ -1,0 +1,8 @@
+{
+  "port": 5000,
+  "db_name": "school_docs",
+  "db_user": "postgres",
+  "db_password": "qwerty123",
+  "db_host": "localhost",
+  "db_port": 5432
+}
