@@ -1,8 +1,8 @@
-const {Router} = require('express')
-const router = Router
+const Router = require('express')
+const router = new Router()
 const MarkController = require('../controller/MarkController')
 
 router.post('/', MarkController.create)
-router.get('/', MarkController.getAll)
+router.get('/', MarkController.findAll)
 
 module.exports = router
