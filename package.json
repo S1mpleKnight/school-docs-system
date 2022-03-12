@@ -11,9 +11,11 @@
   "author": "Zelezinsky Ivan <s1mpleknight@mail.ru>",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "config": "^3.3.7",
     "cors": "^2.8.5",
     "express": "^4.17.3",
+    "express-validator": "^6.14.0",
     "pg": "^8.7.3",
     "sequelize": "^6.17.0"
   },
