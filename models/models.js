@@ -4,7 +4,7 @@ const {DataTypes} = require('sequelize')
 const Student = sequelize.define('student', {
     id: {type: DataTypes.SMALLINT, primaryKey: true, autoIncrement: true, unsigned: true},
     login: {type: DataTypes.STRING(50), unique: true, allowNull: false},
-    passwordHash: {type: DataTypes.STRING(50), allowNull: false},
+    passwordHash: {type: DataTypes.STRING, allowNull: false},
     firstName: {type: DataTypes.STRING(50), allowNull: false},
     lastName: {type: DataTypes.STRING(50), allowNull: false},
     secondName: {type: DataTypes.STRING(50)},
@@ -13,7 +13,7 @@ const Student = sequelize.define('student', {
 const Teacher = sequelize.define('teacher', {
     id: {type: DataTypes.SMALLINT, primaryKey: true, autoIncrement: true, unsigned: true},
     login: {type: DataTypes.STRING(50), unique: true, allowNull: false},
-    passwordHash: {type: DataTypes.STRING(50), allowNull: false},
+    passwordHash: {type: DataTypes.STRING, allowNull: false},
     firstName: {type: DataTypes.STRING(50), allowNull: false},
     lastName: {type: DataTypes.STRING(50), allowNull: false},
     secondName: {type: DataTypes.STRING(50)},
