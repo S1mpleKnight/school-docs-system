@@ -1,5 +1,5 @@
-const express = require('express')
 const config = require('config')
+const express = require('express')
 const sequelize = require('./db')
 const models = require('./models/models')
 const errorHandler = require('./middleware/ErrorHandling')
@@ -11,6 +11,7 @@ const app = express()
 
 app.use(express.json())
 app.use('/api', router)
+
 app.use(errorHandler)
 
 const start = async () => {
