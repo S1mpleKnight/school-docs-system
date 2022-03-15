@@ -35,7 +35,7 @@ const MarkRole = sequelize.define('mark_role', {
     name: {type: DataTypes.STRING(10), unique: true, allowNull: false}
 })
 
-const Miss = sequelize.define('miss', {
+const Skip = sequelize.define('skip', {
     id: {type: DataTypes.SMALLINT, primaryKey: true},
     subject: {type: DataTypes.SMALLINT, primaryKey: true},
     teacher: {type: DataTypes.SMALLINT, primaryKey: true, unsigned: true},
@@ -144,8 +144,8 @@ Student.hasMany(Mark)
 Group.hasMany(Student)
 Student.belongsTo(Group)
 
-Miss.hasOne(Student)
-Student.belongsTo(Miss)
+Skip.hasOne(Student)
+Student.belongsTo(Skip)
 
 Teacher.belongsTo(Timetable)
 
@@ -154,8 +154,8 @@ Group.belongsTo(Timetable)
 
 Subject.belongsTo(Timetable)
 
-Timetable.hasMany(Miss)
-Miss.belongsTo(Timetable)
+Timetable.hasMany(Skip)
+Skip.belongsTo(Timetable)
 
 Teacher.hasOne(Group)
 Group.belongsTo(Teacher)
@@ -165,5 +165,5 @@ Subject.belongsTo(GroupSubjects)
 Term.belongsTo(GroupSubjects)
 
 module.exports = {
-    Teacher, Student, Term, Subject, GroupSubjects, Timetable, Miss, Role, MarkRole, Mark
+    Teacher, Student, Term, Subject, GroupSubjects, Timetable, Skip, Role, MarkRole, Mark
 }
