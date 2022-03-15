@@ -34,8 +34,14 @@ class TeacherController {
     }
 
     async findAll(req, res) {
-        const teachers = await Teacher.findAll()
-        return res.json(teachers)
+        const rawTeachers = await Teacher.findAll()
+        const teachers = JSON.parse(JSON.stringify(rawTeachers))
+        let responseBody = [];
+        for (const teacher of teachers) {
+            const {id, login, firstName, lastName, secondName} = teacher
+            responseBody.push({id, login, firstName, lastName, secondName})
+        }
+        return res.json(responseBody)
     }
 
     async findById(req, res) {
