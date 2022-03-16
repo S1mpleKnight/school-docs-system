@@ -15,7 +15,7 @@
 |       Student marks for the subject | /students/:id/marks/subjects/:id  |    GET    | :white_large_square: |
 | List of marks for the last week (?) | /students/:id/marks/weeks/:number |    GET    | :white_large_square: |
 |                      List of groups |              /groups              | GET, POST |  :white_check_mark:  |
-|                          Group page |            /groups/:id            |    GET    | :white_large_square: |
+|                          Group page |            /groups/:id            |    GET    |  :white_check_mark:  |
 |                        Group rating |          /groups/rating           |    GET    | :white_large_square: |
 |                   Group miss rating |         /groups/:id/skips         |    GET    | :white_large_square: |
 |       List of marks for the subject |  /groups/:id/marks/subjects/:id   |    GET    | :white_large_square: |
@@ -23,5 +23,5 @@
 |                    List of vouchers |             /vouchers             |    GET    | :white_large_square: |
 |                        Voucher page |           /vouchers/:id           |    GET    | :white_large_square: |
 |                    List of teachers |             /teachers             | GET, POST |  :white_check_mark:  |
-|                      Teacher's page |           /teachers/:id           |    GET    | :white_large_square: |
+|                      Teacher's page |           /teachers/:id           |    GET    |  :white_check_mark:  |
 |                    Teacher's groups |       /teachers/:id/groups        |    GET    | :white_large_square: |

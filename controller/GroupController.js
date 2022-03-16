@@ -32,7 +32,16 @@ class GroupController {
     }
 
     async findById(req, res) {
-
+        try {
+            const group = await Group.findOne({where: {"id": req.params.id}})
+            if (!group) {
+                return next(apiError.notFound(`Group with id: ${req.params.id} do not exist`))
+            }
+            const {id, letter, number} = group
+            return res.json({id, letter, number})
+        } catch (e) {
+            next(apiError.badRequest(e.message))
+        }
     }
 }
 

@@ -53,7 +53,16 @@ class TeacherController {
     }
 
     async findById(req, res) {
-
+        try {
+            const teacher = await Teacher.findOne({where: {"id": req.params.id}})
+            if (!teacher) {
+                return next(apiError.notFound(`Teacher with id: ${req.params.id} do not exist`))
+            }
+            const {id, login, firstName, lastName, middleName} = teacher
+            return res.json({id, login, firstName, lastName, middleName})
+        } catch (e) {
+            next(apiError.badRequest(e.message))
+        }
     }
 }
 
