@@ -1,8 +1,10 @@
 const Router = require('express')
 const router = new Router()
-const StudentController = require('../controller/StudentController')
+const studentController = require('../controller/StudentController')
+const validator = require('../validator/EntityValidator')
 
-router.post('/', StudentController.create)
-router.get('/', StudentController.findAll)
+router.post('/', validator.getUserCreationValidator(), studentController.create)
+router.get('/', studentController.findAll)
+router.get('/:id', studentController.findById)
 
 module.exports = router
