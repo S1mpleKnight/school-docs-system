@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt')
 const config = require('config')
 const SALT_ROUNDS = parseInt(config.get("salt"), 10)
 const TEACHER_ROLE_ID = config.get("teacher_role")
+const parsingErrors = require('../error/ErrorParser')
 
 
 class TeacherController {
@@ -15,8 +16,8 @@ class TeacherController {
                 let errorMessages = parsingErrors(errors);
                 return next(apiError.badRequest([...errorMessages]))
             }
-            const {firstName, lastName, secondName, login, password} = req.body
-            const candidate = await Teacher.findOne({where: {login : login}})
+            const {firstName, lastName, middleName, login, password} = req.body
+            const candidate = await Teacher.findOne({where: {login: login}})
             if (candidate) {
                 return next(apiError.unprocessableEntity("Teacher with this login already exists"))
             }
@@ -26,7 +27,14 @@ class TeacherController {
             }).then(hash => {
                 passwordHash = hash
             })
-            const teacher = await Teacher.create({firstName, lastName, secondName, login, passwordHash, TEACHER_ROLE_ID})
+            const teacher = await Teacher.create({
+                firstName,
+                lastName,
+                middleName,
+                login,
+                passwordHash,
+                TEACHER_ROLE_ID
+            })
             return res.json(teacher)
         } catch (e) {
             next(apiError.badRequest(e.message))
@@ -38,8 +46,8 @@ class TeacherController {
         const teachers = JSON.parse(JSON.stringify(rawTeachers))
         let responseBody = [];
         for (const teacher of teachers) {
-            const {id, login, firstName, lastName, secondName} = teacher
-            responseBody.push({id, login, firstName, lastName, secondName})
+            const {id, login, firstName, lastName, middleName} = teacher
+            responseBody.push({id, login, firstName, lastName, middleName})
         }
         return res.json(responseBody)
     }
@@ -47,13 +55,6 @@ class TeacherController {
     async findById(req, res) {
 
     }
-}
-function parsingErrors(errors) {
-    let errorMessages = new Set();
-    for (let error of errors.array()) {
-        errorMessages.add(error.msg)
-    }
-    return errorMessages;
 }
 
 module.exports = new TeacherController()
