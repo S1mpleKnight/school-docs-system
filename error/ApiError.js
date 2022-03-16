@@ -21,6 +21,10 @@ class ApiError extends Error {
         return new ApiError(422, message)
     }
 
+    static notFound(message) {
+        return new ApiError(404, message)
+    }
+
 }
 
 module.exports = ApiError
