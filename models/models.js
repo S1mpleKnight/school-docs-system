@@ -7,7 +7,9 @@ const Student = sequelize.define('student', {
     passwordHash: {type: DataTypes.STRING, allowNull: false},
     firstName: {type: DataTypes.STRING(50), allowNull: false},
     lastName: {type: DataTypes.STRING(50), allowNull: false},
-    secondName: {type: DataTypes.STRING(50)},
+    middleName: {type: DataTypes.STRING(50)},
+}, {
+    timestamps: false
 })
 
 const Teacher = sequelize.define('teacher', {
@@ -16,23 +18,31 @@ const Teacher = sequelize.define('teacher', {
     passwordHash: {type: DataTypes.STRING, allowNull: false},
     firstName: {type: DataTypes.STRING(50), allowNull: false},
     lastName: {type: DataTypes.STRING(50), allowNull: false},
-    secondName: {type: DataTypes.STRING(50)},
+    middleName: {type: DataTypes.STRING(50)},
+}, {
+    timestamps: false
 })
 
 const Role = sequelize.define('role', {
     id: {type: DataTypes.SMALLINT, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING(10), unique: true, allowNull: false}
+}, {
+    timestamps: false
 })
 
 const Term = sequelize.define('term', {
     id: {type: DataTypes.SMALLINT, primaryKey: true, autoIncrement: true},
     startDate: {type: DataTypes.DATEONLY, allowNull: false},
     endDate: {type: DataTypes.DATEONLY, allowNull: false},
+}, {
+    timestamps: false
 })
 
 const MarkRole = sequelize.define('mark_role', {
     id: {type: DataTypes.SMALLINT, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING(10), unique: true, allowNull: false}
+}, {
+    timestamps: false
 })
 
 const Skip = sequelize.define('skip', {
@@ -42,11 +52,15 @@ const Skip = sequelize.define('skip', {
     date: {type: DataTypes.DATE, allowNull: false},
     approved: {type: DataTypes.STRING(50)},
     documentUrl: {type: DataTypes.STRING}
+}, {
+    timestamps: false
 })
 
 const Subject = sequelize.define('subject', {
     id: {type: DataTypes.SMALLINT, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING(50), unique: true, allowNull: false}
+}, {
+    timestamps: false
 })
 
 const Timetable = sequelize.define('timetable', {
@@ -69,13 +83,16 @@ const Timetable = sequelize.define('timetable', {
     },
     datetime: {type: DataTypes.DATE, primaryKey: true}
 }, {
-    freezeTableName: true
+    freezeTableName: true,
+    timestamps: false
 })
 
 const Group = sequelize.define('group', {
     id: {type: DataTypes.SMALLINT, primaryKey: true, autoIncrement: true, unsigned: true},
-    letter: {type: DataTypes.CHAR, allowNull: false},
+    letter: {type: DataTypes.STRING(1), allowNull: false},
     number: {type: DataTypes.SMALLINT, unsigned: true, allowNull: false}
+}, {
+    timestamps: false
 })
 
 const Mark = sequelize.define('mark', {
@@ -98,6 +115,8 @@ const Mark = sequelize.define('mark', {
         }
     },
     value: {type: DataTypes.SMALLINT, allowNull: false}
+}, {
+    timestamps: false
 })
 
 const GroupSubjects = sequelize.define('subject_term_group', {
@@ -127,7 +146,8 @@ const GroupSubjects = sequelize.define('subject_term_group', {
             }
         },
     },{
-    freezeTableName: true
+    freezeTableName: true,
+
 })
 
 Teacher.hasOne(Role)
@@ -165,5 +185,5 @@ Subject.belongsTo(GroupSubjects)
 Term.belongsTo(GroupSubjects)
 
 module.exports = {
-    Teacher, Student, Term, Subject, GroupSubjects, Timetable, Skip, Role, MarkRole, Mark
+    Teacher, Student, Term, Subject, GroupSubjects, Timetable, Skip, Role, MarkRole, Mark, Group
 }
