@@ -4,7 +4,7 @@ const {validationResult} = require('express-validator')
 const parsingErrors = require("../error/ErrorParser");
 const bcrypt = require("bcrypt");
 const config = require("config");
-const SALT_ROUNDS = parseInt(config.get("salt"), 10)
+const SALT_ROUNDS = parseInt(config.get("salt_rounds"), 10)
 
 class StudentController {
     async findAll(req, res) {
@@ -30,12 +30,7 @@ class StudentController {
             if (candidate) {
                 return next(apiError.unprocessableEntity("Student with this login already exists"))
             }
-            let passwordHash;
-            await bcrypt.genSalt(SALT_ROUNDS).then(salt => {
-                return bcrypt.hash(password, salt)
-            }).then(hash => {
-                passwordHash = hash
-            })
+            const passwordHash = bcrypt.hashSync(password, SALT_ROUNDS)
             const student = await Student.create({firstName, lastName, middleName, login, passwordHash})
             return res.json(student)
         } catch (e) {

@@ -3,7 +3,7 @@ const apiError = require('../error/ApiError')
 const {validationResult} = require('express-validator')
 const bcrypt = require('bcrypt')
 const config = require('config')
-const SALT_ROUNDS = parseInt(config.get("salt"), 10)
+const SALT_ROUNDS = parseInt(config.get("salt_rounds"), 10)
 const TEACHER_ROLE_ID = config.get("teacher_role")
 const parsingErrors = require('../error/ErrorParser')
 
@@ -21,12 +21,7 @@ class TeacherController {
             if (candidate) {
                 return next(apiError.unprocessableEntity("Teacher with this login already exists"))
             }
-            let passwordHash;
-            await bcrypt.genSalt(SALT_ROUNDS).then(salt => {
-                return bcrypt.hash(password, salt)
-            }).then(hash => {
-                passwordHash = hash
-            })
+            const passwordHash = bcrypt.hashSync(password, SALT_ROUNDS)
             const teacher = await Teacher.create({
                 firstName,
                 lastName,
