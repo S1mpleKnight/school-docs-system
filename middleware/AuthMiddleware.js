@@ -15,7 +15,7 @@ module.exports = function (req, res, next) {
         req.user = jwt.verify(token, SECRET)
         next()
     } catch (e) {
-        console.log(e)
+        console.log(`AuthMiddleware error: ${e}`)
         return next(apiError.badRequest("You are not authorized"))
     }
 }
