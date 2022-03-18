@@ -1,7 +1,6 @@
 const config = require('config')
 const express = require('express')
 const sequelize = require('./db')
-const models = require('./models/models')
 const errorHandler = require('./middleware/ErrorHandling')
 const router = require('./routes/index');
 
@@ -18,7 +17,6 @@ const start = async () => {
     try {
         await sequelize.authenticate()
         await sequelize.sync()
-
         app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
     } catch (e) {
         console.log(e)

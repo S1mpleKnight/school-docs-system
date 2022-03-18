@@ -20,7 +20,7 @@
 |                   Group miss rating |         /groups/:id/skips         |    GET    | :white_large_square: |
 |       List of marks for the subject |  /groups/:id/marks/subjects/:id   |    GET    | :white_large_square: |
 |       List of subjects for the term |  /groups/:id/subjects/terms/:id   |    GET    | :white_large_square: |
-|                    List of vouchers |             /vouchers             |    GET    | :white_large_square: |
+|                    List of vouchers |             /vouchers             | GET, POST | :white_large_square: |
 |                        Voucher page |           /vouchers/:id           |    GET    | :white_large_square: |
 |                    List of teachers |             /teachers             | GET, POST |  :white_check_mark:  |
 |                      Teacher's page |           /teachers/:id           |    GET    |  :white_check_mark:  |

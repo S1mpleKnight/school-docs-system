@@ -9,14 +9,8 @@ const roleMiddleware = require('../middleware/RoleMiddleware')
 
 router.post('/login', authController.login)
 
-router.use('/', function (req, res, next) {
-    console.log('request')
-    console.log('response')
-    next()
-})
-
-router.use('/teachers', authMiddleware, teacherRouter)
-router.use('/students', authMiddleware, studentRouter)
-router.use('/groups', authMiddleware, groupRouter)
+router.use('/teachers', authMiddleware, roleMiddleware('ADMIN'), teacherRouter)
+router.use('/students', authMiddleware, roleMiddleware( 'ADMIN'), studentRouter)
+router.use('/groups', authMiddleware, roleMiddleware('ADMIN'), groupRouter)
 
 module.exports = router

@@ -1,24 +1,13 @@
 const sequelize = require('../db')
 const {DataTypes} = require('sequelize')
 
-const Student = sequelize.define('student', {
-    id: {type: DataTypes.SMALLINT, primaryKey: true, autoIncrement: true, unsigned: true},
-    login: {type: DataTypes.STRING(50), unique: true, allowNull: false},
-    passwordHash: {type: DataTypes.STRING, allowNull: false},
+const User = sequelize.define('user', {
+    id: {type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true, unsigned: true},
     firstName: {type: DataTypes.STRING(50), allowNull: false},
     lastName: {type: DataTypes.STRING(50), allowNull: false},
     middleName: {type: DataTypes.STRING(50)},
-}, {
-    timestamps: false
-})
-
-const Teacher = sequelize.define('teacher', {
-    id: {type: DataTypes.SMALLINT, primaryKey: true, autoIncrement: true, unsigned: true},
     login: {type: DataTypes.STRING(50), unique: true, allowNull: false},
     passwordHash: {type: DataTypes.STRING, allowNull: false},
-    firstName: {type: DataTypes.STRING(50), allowNull: false},
-    lastName: {type: DataTypes.STRING(50), allowNull: false},
-    middleName: {type: DataTypes.STRING(50)},
 }, {
     timestamps: false
 })
@@ -34,6 +23,7 @@ const Term = sequelize.define('term', {
     id: {type: DataTypes.SMALLINT, primaryKey: true, autoIncrement: true},
     startDate: {type: DataTypes.DATEONLY, allowNull: false},
     endDate: {type: DataTypes.DATEONLY, allowNull: false},
+    number: {type: DataTypes.SMALLINT, unsigned: true, allowNull: false}
 }, {
     timestamps: false
 })
@@ -47,9 +37,7 @@ const MarkRole = sequelize.define('mark_role', {
 
 const Skip = sequelize.define('skip', {
     id: {type: DataTypes.SMALLINT, primaryKey: true},
-    subject: {type: DataTypes.SMALLINT, primaryKey: true},
-    teacher: {type: DataTypes.SMALLINT, primaryKey: true, unsigned: true},
-    date: {type: DataTypes.DATE, allowNull: false},
+    datetime: {type: DataTypes.DATE, allowNull: false},
     approved: {type: DataTypes.STRING(50)},
     documentUrl: {type: DataTypes.STRING}
 }, {
@@ -65,11 +53,11 @@ const Subject = sequelize.define('subject', {
 
 const Timetable = sequelize.define('timetable', {
     teacher: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.BIGINT,
         primaryKey: true,
         unsigned: true,
         references : {
-            model: Teacher,
+            model: User,
             key: 'id',
         }
     },
@@ -106,11 +94,19 @@ const Mark = sequelize.define('mark', {
         }
     },
     student: {
-        type: DataTypes.SMALLINT,
+        type: DataTypes.BIGINT,
         primaryKey: true,
         unsigned: true,
         references: {
-            model: Student,
+            model: User,
+            key: 'id'
+        }
+    },
+    teacher: {
+        type: DataTypes.BIGINT,
+        unsigned: true,
+        references: {
+            model: User,
             key: 'id'
         }
     },
@@ -119,71 +115,30 @@ const Mark = sequelize.define('mark', {
     timestamps: false
 })
 
-const GroupSubjects = sequelize.define('subject_term_group', {
-        subject: {
-            type: DataTypes.SMALLINT,
-            allowNull: false,
-            references: {
-                model: Subject,
-                key: 'id'
-            }
-        },
-        term: {
-            type: DataTypes.SMALLINT,
-            primaryKey: true,
-            references: {
-                model: Term,
-                key: 'id'
-            }
-        },
-        group: {
-            type: DataTypes.SMALLINT,
-            primaryKey: true,
-            unsigned: true,
-            references: {
-                model: Group,
-                key: 'id'
-            }
-        },
-    },{
-    freezeTableName: true,
-
-})
-
-Teacher.hasOne(Role)
-Role.belongsTo(Teacher)
+Role.hasMany(User)
+User.belongsTo(Role)
 
 MarkRole.hasMany(Mark)
 Mark.belongsTo(MarkRole)
 
-Mark.hasOne(Term)
-Term.belongsTo(Mark)
+Term.hasMany(Mark)
+Mark.belongsTo(Term)
 
-Student.hasMany(Mark)
+User.hasMany(Skip)
+Skip.belongsTo(User)
 
-Group.hasMany(Student)
-Student.belongsTo(Group)
+Group.hasMany(Timetable)
+Timetable.belongsTo(Group)
 
-Skip.hasOne(Student)
-Student.belongsTo(Skip)
-
-Teacher.belongsTo(Timetable)
-
-Timetable.hasOne(Group)
-Group.belongsTo(Timetable)
-
-Subject.belongsTo(Timetable)
-
-Timetable.hasMany(Skip)
+Timetable.hasOne(Skip)
 Skip.belongsTo(Timetable)
 
-Teacher.hasOne(Group)
-Group.belongsTo(Teacher)
+Group.hasMany(User)
+User.belongsTo(Group)
 
-Group.belongsTo(GroupSubjects)
-Subject.belongsTo(GroupSubjects)
-Term.belongsTo(GroupSubjects)
+Term.hasMany(Timetable)
+Timetable.belongsTo(Term)
 
 module.exports = {
-    Teacher, Student, Term, Subject, GroupSubjects, Timetable, Skip, Role, MarkRole, Mark, Group
+    User, Term, Subject, Timetable, Skip, Role, MarkRole, Mark, Group
 }

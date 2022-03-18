@@ -6,6 +6,5 @@
   "db_host": "localhost",
   "db_port": 5432,
   "secret": "Papich",
-  "salt_rounds": 10,
-  "teacher_role": 1
+  "salt_rounds": 10
 }
