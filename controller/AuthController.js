@@ -1,5 +1,4 @@
-const {Teacher} = require('../models/models')
-const {Student} = require('../models/models')
+const {User} = require('../models/models')
 const bcrypt = require('bcrypt')
 const apiError = require('../error/ApiError')
 const jwt = require('jsonwebtoken')
@@ -14,16 +13,15 @@ class AuthController {
     async login(req, res, next) {
         try {
             const {login, password} = req.body
-            const teacher = await Teacher.findOne({where: {login: login}})
-            if (!teacher) {
-                return next(apiError.notFound(`Student with username: ${login} was not found`))
+            const user = await User.findOne({where: {login: login}})
+            if (!user) {
+                return next(apiError.notFound(`User with username: ${login} was not found`))
             }
-            const validPassword = bcrypt.compareSync(password, teacher.passwordHash)
+            const validPassword = bcrypt.compareSync(password, user.passwordHash)
             if (!validPassword) {
                 return next(apiError.unauthorized(`Invalid password`))
             }
-            const token = generateAccessToken(teacher.id, teacher.role)
-            console.log(token)
+            const token = generateAccessToken(user.id, user.role)
             return res.json({token})
         } catch (e) {
             return next(apiError.badRequest(`Login was failed: ${e.message}`))

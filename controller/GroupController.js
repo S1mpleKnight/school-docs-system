@@ -4,15 +4,20 @@ const {validationResult} = require('express-validator')
 const parsingErrors = require("../error/ErrorParser");
 
 class GroupController {
-    async findAll(req, res) {
-        const rawGroups = await Group.findAll()
-        const groups = JSON.parse(JSON.stringify(rawGroups))
-        let responseBody = [];
-        for (const group of groups) {
-            const {id, letter, number} = group
-            responseBody.push({id, letter, number})
+    async findAll(req, res, next) {
+        try {
+            const rawGroups = await Group.findAll()
+            const groups = JSON.parse(JSON.stringify(rawGroups))
+            let responseBody = [];
+            for (const group of groups) {
+                const {id, letter, number} = group
+                responseBody.push({id, letter, number})
+            }
+            return res.json(responseBody)
+        } catch (e) {
+            console.log(`Error in the GroupController findAll method ${e}`)
+            next(apiError.badRequest(e.message))
         }
-        return res.json(responseBody)
     }
 
     async create(req, res, next) {
@@ -27,11 +32,12 @@ class GroupController {
             const group = await Group.create({letter, number})
             return res.json(group)
         } catch (e) {
+            console.log(`Error in the GroupController creation method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
 
-    async findById(req, res) {
+    async findById(req, res, next) {
         try {
             const group = await Group.findOne({where: {"id": req.params.id}})
             if (!group) {
@@ -40,6 +46,7 @@ class GroupController {
             const {id, letter, number} = group
             return res.json({id, letter, number})
         } catch (e) {
+            console.log(`Error in the GroupController findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
