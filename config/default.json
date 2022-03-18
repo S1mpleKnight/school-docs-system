@@ -5,7 +5,7 @@
   "db_password": "qwerty123",
   "db_host": "localhost",
   "db_port": 5432,
-  "salt": "Papich",
+  "secret": "Papich",
   "salt_rounds": 10,
   "teacher_role": 1
 }

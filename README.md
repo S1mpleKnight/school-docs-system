@@ -25,3 +25,4 @@
 |                    List of teachers |             /teachers             | GET, POST |  :white_check_mark:  |
 |                      Teacher's page |           /teachers/:id           |    GET    |  :white_check_mark:  |
 |                    Teacher's groups |       /teachers/:id/groups        |    GET    | :white_large_square: |
+|                               Login |              /login               |   POST    |  :white_check_mark:  |
