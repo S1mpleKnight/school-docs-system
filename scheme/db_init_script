@@ -1,0 +1,2 @@
+INSERT INTO roles (name) VALUES ('ADMIN'), ('TEACHER'), ('STUDENT');
+INSERT INTO users VALUES (0, 'admin', 'admin', 'admin', 'adminadmin', '$2b$10$tbd0MZOrxCGf1wKwJ4Pzlun0XhETGE9FG8TlC98N4G3IAlZgnmq8.', 1, NULL);
