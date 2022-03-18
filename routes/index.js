@@ -2,8 +2,12 @@ const Router = require('express')
 const router = new Router()
 const teacherRouter = require('./TeacherRouter')
 const studentRouter = require('./StudentRouter')
-const skipRouter = require('./SkipRouter')
 const groupRouter = require('./GroupRouter')
+const authController = require('../controller/AuthController')
+const authMiddleware = require('../middleware/AuthMiddleware')
+const roleMiddleware = require('../middleware/RoleMiddleware')
+
+router.post('/login', authController.login)
 
 router.use('/', function (req, res, next) {
     console.log('request')
@@ -11,9 +15,8 @@ router.use('/', function (req, res, next) {
     next()
 })
 
-router.use('/teachers', teacherRouter)
-router.use('/students', studentRouter)
-router.use('/skips', skipRouter)
-router.use('/groups', groupRouter)
+router.use('/teachers', authMiddleware, teacherRouter)
+router.use('/students', authMiddleware, studentRouter)
+router.use('/groups', authMiddleware, groupRouter)
 
 module.exports = router
