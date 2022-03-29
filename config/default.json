@@ -6,5 +6,7 @@
   "db_host": "localhost",
   "db_port": 5432,
   "secret": "Papich",
-  "salt_rounds": 10
+  "salt_rounds": 10,
+  "upload_path": "D:\\Code\\Git\\JS\\SPP\\school_docs\\uploads",
+  "upload_file": "filedata"
 }
