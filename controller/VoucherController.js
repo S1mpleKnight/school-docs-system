@@ -23,7 +23,8 @@ class VoucherController {
             const documentUrl = req.file.path
             const uploadDate = Date.now()
             const voucher = await Voucher.create({documentUrl, uploadDate})
-            return res.json(voucher)
+            const id = voucher.id
+            return res.json({id, documentUrl, uploadDate})
         } catch (e) {
             console.log(`Error in the VoucherController upload method ${e}`)
             next(apiError.badRequest(e.message))
@@ -36,7 +37,8 @@ class VoucherController {
             if (!voucher) {
                 return next(apiError.notFound(`voucher with id: ${req.params.id} do not exist`))
             }
-            return res.json(voucher)
+            const {documentUrl, uploadDate, id} = voucher
+            return res.json({id, documentUrl, uploadDate})
         } catch (e) {
             console.log(`Error in the VoucherController findById method ${e}`)
             next(apiError.badRequest(e.message))
