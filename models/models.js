@@ -35,15 +35,6 @@ const MarkRole = sequelize.define('mark_role', {
     timestamps: false
 })
 
-const Skip = sequelize.define('skip', {
-    id: {type: DataTypes.SMALLINT, primaryKey: true},
-    datetime: {type: DataTypes.DATE, allowNull: false},
-    approved: {type: DataTypes.STRING(50)},
-    documentUrl: {type: DataTypes.STRING}
-}, {
-    timestamps: false
-})
-
 const Subject = sequelize.define('subject', {
     id: {type: DataTypes.SMALLINT, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING(50), unique: true, allowNull: false}
@@ -115,6 +106,27 @@ const Mark = sequelize.define('mark', {
     timestamps: false
 })
 
+const Voucher = sequelize.define('vouchers',{
+    id : {type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true, unsigned: true},
+    documentUrl: {type : DataTypes.STRING(255), allowNull: false},
+    uploadDate: {type: DataTypes.DATE}
+}, {
+    timestamps: false,
+    freezeTableName: true
+})
+
+const Skip = sequelize.define('skip', {
+    id: {type: DataTypes.SMALLINT, primaryKey: true},
+    datetime: {type: DataTypes.DATE, allowNull: false},
+    approved: {type: DataTypes.STRING(50)},
+    documentUrl: {type: DataTypes.STRING}
+}, {
+    timestamps: false
+})
+
+Skip.hasOne(Voucher)
+Voucher.belongsTo(Skip)
+
 Role.hasMany(User)
 User.belongsTo(Role)
 
@@ -140,5 +152,5 @@ Term.hasMany(Timetable)
 Timetable.belongsTo(Term)
 
 module.exports = {
-    User, Term, Subject, Timetable, Skip, Role, MarkRole, Mark, Group
+    User, Term, Subject, Timetable, Skip, Role, MarkRole, Mark, Group, Voucher
 }
