@@ -119,7 +119,6 @@ const Skip = sequelize.define('skip', {
     id: {type: DataTypes.SMALLINT, primaryKey: true},
     datetime: {type: DataTypes.DATE, allowNull: false},
     approved: {type: DataTypes.STRING(50)},
-    documentUrl: {type: DataTypes.STRING}
 }, {
     timestamps: false
 })
