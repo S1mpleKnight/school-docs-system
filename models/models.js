@@ -60,7 +60,8 @@ const Timetable = sequelize.define('timetable', {
             key: 'id'
         }
     },
-    datetime: {type: DataTypes.DATE, primaryKey: true}
+    date: {type: DataTypes.DATEONLY, primaryKey: true},
+    lessonNumber: {type: DataTypes.SMALLINT, allowNull: false, unsigned: true}
 }, {
     freezeTableName: true,
     timestamps: false
@@ -75,7 +76,7 @@ const Group = sequelize.define('group', {
 })
 
 const Mark = sequelize.define('mark', {
-    date: {type: DataTypes.DATE, primaryKey: true},
+    date: {type: DataTypes.DATEONLY, primaryKey: true},
     subject: {
         type: DataTypes.SMALLINT,
         primaryKey: true,
