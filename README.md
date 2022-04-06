@@ -10,7 +10,7 @@
 |                    List of students |             /students             |    GET, POST     |  :white_check_mark:  |
 |                        Student page |           /students/:id           | GET, PUT, DELETE |  :white_check_mark:  |
 |                      Student rating |         /students/rating          |       GET        | :white_large_square: |
-|                       List of marks |     /students/:id/marks/:term     |       GET        | :white_large_square: |
+|                       List of marks |     /marks/:term/students/:id     |       GET        |  :white_check_mark:  |
 |            List of academic results |    /students/:id/results/:term    |       GET        | :white_large_square: |
 |       Student marks for the subject | /students/:id/marks/subjects/:id  |       GET        | :white_large_square: |
 | List of marks for the last week (?) | /students/:id/marks/weeks/:number |       GET        | :white_large_square: |

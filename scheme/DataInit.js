@@ -1,11 +1,11 @@
-const {Role, User, Group} = require('../models/models')
+const {Role, User, Group, Subject, Term, Mark, MarkRole} = require('../models/models')
 const bcrypt = require("bcrypt");
 const config = require('config')
 const SALT_ROUNDS = config.get('salt_rounds')
 
 function createPasswords() {
     let passwords = ['Vasya_12345', 'Petya_12345', 'Vanya_12345', 'Sasha_12345', 'Kolya_12345', 'Vlad_123456',
-                    'Lesha_12345', 'Kostya_12345', 'Tolik_12345', 'Vitalik_12345', 'OlgaMuhina_89', 'NadezhdaKlukvina_75']
+                    'Lesha_12345', 'Kostya_12345', 'Tolik_12345', 'Vitalik_12345', 'OlgaMuhina_89', 'NadezhdaKlukvina_75', 'adminadmin']
     let hashedPasswords = []
     for (password of passwords) {
          hashedPasswords.push(bcrypt.hashSync(password, SALT_ROUNDS))
@@ -31,7 +31,7 @@ async function init() {
                 lastName: "admin",
                 middleName: "admin",
                 login: "adminadmin",
-                passwordHash: "$2b$10$tbd0MZOrxCGf1wKwJ4Pzlun0XhETGE9FG8TlC98N4G3IAlZgnmq8",
+                passwordHash: hashedPasswords.pop(),
                 roleId: 1,
                 groupId: null
             },
@@ -142,6 +142,114 @@ async function init() {
                 roleId: 3,
                 groupId: 1,
                 passwordHash: hashedPasswords.pop()
+            }
+        ])
+        await Subject.bulkCreate([
+            {
+                name: "Russian language"
+            },
+            {
+                name: "Russian literature"
+            },
+            {
+                name: "Mathematics"
+            },
+            {
+                name: "Physics"
+            },
+            {
+                name: "Chemistry"
+            }
+        ])
+        const firstTermStart = new Date(2021, 8, 1)
+        const firstTermEnd = new Date(2021, 9, 29)
+        const secondTermStart = new Date(2021, 10, 8)
+        const secondTermEnd = new Date(2021, 11, 24)
+        const thirdTermStart = new Date(2022, 0, 10)
+        const thirdTermEnd = new Date(2022, 2, 25)
+        const fourthTermStart = new Date(2022, 3, 4)
+        const fourthTermEnd = new Date(2022, 4, 31)
+        await Term.bulkCreate([
+            {
+                startDate: firstTermStart,
+                endDate: firstTermEnd,
+                number: 1
+            },
+            {
+                startDate: secondTermStart,
+                endDate: secondTermEnd,
+                number: 2
+            },
+            {
+                startDate: thirdTermStart,
+                endDate: thirdTermEnd,
+                number: 3
+            },
+            {
+                startDate: fourthTermStart,
+                endDate: fourthTermEnd,
+                number: 4
+            },
+        ])
+        await MarkRole.bulkCreate([
+            {name: 'LESSON'},
+            {name: 'TERM'},
+            {name: 'YEAR'}
+        ])
+        await Mark.bulkCreate([
+            {
+                date: firstTermStart,
+                subject: 1,
+                student: 4,
+                teacher: 2,
+                value: 10,
+                markRoleId: 1,
+                termId: 1
+            },
+            {
+                date: firstTermEnd,
+                subject: 1,
+                student: 4,
+                teacher: 2,
+                value: 8,
+                markRoleId: 1,
+                termId: 1
+            },
+            {
+                date: firstTermStart,
+                subject: 2,
+                student: 4,
+                teacher: 2,
+                value: 9,
+                markRoleId: 1,
+                termId: 1
+            },
+            {
+                date: firstTermEnd,
+                subject: 2,
+                student: 4,
+                teacher: 2,
+                value: 4,
+                markRoleId: 1,
+                termId: 1
+            },
+            {
+                date: firstTermStart,
+                subject: 3,
+                student: 4,
+                teacher: 3,
+                value: 7,
+                markRoleId: 1,
+                termId: 1
+            },
+            {
+                date: firstTermStart,
+                subject: 4,
+                student: 4,
+                teacher: 3,
+                value: 9,
+                markRoleId: 1,
+                termId: 1
             }
         ])
     } catch (e) {
