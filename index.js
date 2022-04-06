@@ -3,6 +3,7 @@ const express = require('express')
 const sequelize = require('./db')
 const errorHandler = require('./middleware/ErrorHandling')
 const router = require('./routes/index');
+const dataInit = require('./scheme/DataInit')
 
 const PORT = config.get('port') || 5000
 
@@ -16,6 +17,9 @@ const start = async () => {
     try {
         await sequelize.authenticate()
         await sequelize.sync()
+        if (config.get("init_data")) {
+            dataInit()
+        }
         app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
     } catch (e) {
         console.log(e)

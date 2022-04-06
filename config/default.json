@@ -8,5 +8,6 @@
   "secret": "Papich",
   "salt_rounds": 10,
   "upload_path": "D:\\Code\\Git\\JS\\SPP\\school_docs\\uploads",
-  "upload_file": "filedata"
+  "upload_file": "filedata",
+  "init_data": "1"
 }
