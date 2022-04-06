@@ -1,14 +1,14 @@
-const {Term} = require('../models/models')
+const {Timetable} = require('../models/models')
 const apiError = require('../error/ApiError')
 const {validationResult} = require('express-validator')
 
-class TermController {
+class TimetableController {
     async findAll(req, res, next) {
         try {
-            const terms = await Term.findAll()
-            return res.json(terms)
+            const lessons = await Timetable.findAll()
+            return res.json(lessons)
         } catch (e) {
-            console.log(`Error in the TermController findAll method ${e}`)
+            console.log(`Error in the TimetableController findAll method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -22,4 +22,4 @@ class TermController {
     }
 }
 
-module.exports = new TermController()
+module.exports = new TimetableController()

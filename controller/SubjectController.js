@@ -1,14 +1,14 @@
-const {Term} = require('../models/models')
+const {Subject} = require('../models/models')
 const apiError = require('../error/ApiError')
 const {validationResult} = require('express-validator')
 
-class TermController {
+class SubjectController {
     async findAll(req, res, next) {
         try {
-            const terms = await Term.findAll()
-            return res.json(terms)
+            const subjects = await Subject.findAll()
+            return res.json(subjects)
         } catch (e) {
-            console.log(`Error in the TermController findAll method ${e}`)
+            console.log(`Error in the SubjectController findAll method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -22,4 +22,4 @@ class TermController {
     }
 }
 
-module.exports = new TermController()
+module.exports = new SubjectController()
