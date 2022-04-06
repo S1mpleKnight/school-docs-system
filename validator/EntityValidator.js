@@ -17,7 +17,17 @@ function getGroupCreationValidator() {
     ]
 }
 
+function getUserUpdateValidator() {
+    return [
+        check('firstName', 'Invalid first name').trim().isLength({max: 50, min: 3}).not().matches(/[^A-Za-z]/),
+        check('lastName', 'Invalid last name').trim().isLength({max: 50, min: 2}).not().matches(/[^A-Za-z]/),
+        check('middleName', 'Invalid middle name').trim().isLength({max: 50, min: 3}).not().matches(/[^A-Za-z]/),
+        check('login', 'Invalid login (from 10 to 50)').trim().isLength({max: 50, min: 10})
+    ];
+}
+
 module.exports = {
     getUserCreationValidator,
-    getGroupCreationValidator
+    getGroupCreationValidator,
+    getUserUpdateValidator
 }
