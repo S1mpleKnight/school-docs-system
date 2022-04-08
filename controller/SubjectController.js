@@ -1,16 +1,8 @@
-const {Subject} = require('../models/models')
-const apiError = require('../error/ApiError')
-const {validationResult} = require('express-validator')
+const service = require('../service/SubjectService')
 
 class SubjectController {
     async findAll(req, res, next) {
-        try {
-            const subjects = await Subject.findAll()
-            return res.json(subjects)
-        } catch (e) {
-            console.log(`Error in the SubjectController findAll method ${e}`)
-            next(apiError.badRequest(e.message))
-        }
+        await service.findAll(req, res, next)
     }
 
     async create(req, res, next) {
