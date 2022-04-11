@@ -2,8 +2,7 @@ const {User} = require('../models/models')
 const bcrypt = require('bcrypt')
 const apiError = require('../error/ApiError')
 const jwt = require('jsonwebtoken')
-const config = require('config')
-const SECRET = config.get("secret")
+const SECRET = process.env.SECRET
 
 const generateAccessToken = (givenId, givenRole) => {
     return jwt.sign({id: givenId, role: givenRole}, SECRET, {expiresIn: '3h'})

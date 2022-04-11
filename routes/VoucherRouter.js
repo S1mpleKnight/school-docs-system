@@ -3,9 +3,8 @@ const router = new Router()
 const voucherController = require('../controller/VoucherController')
 const multer = require("multer");
 const {v4} = require("uuid");
-const config = require("config");
-const UPLOAD_PATH = config.get("upload_path")
-const FILE_FIELD = config.get("upload_file")
+const UPLOAD_PATH = process.env.UPLOAD_PATH
+const FILE_FIELD = process.env.UPLOAD_FILE
 
 const storageConfig = multer.diskStorage({
     destination: function (req, file, cb) {

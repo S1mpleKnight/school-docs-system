@@ -1,11 +1,10 @@
 const {Sequelize} = require('sequelize')
-const config = require('config')
 
-const DB_PASSWORD = config.get('db_password')
-const DB_NAME = config.get('db_name')
-const DB_USER = config.get('db_user')
-const DB_HOST = config.get('db_host')
-const DB_PORT = config.get('db_port')
+const DB_PASSWORD = process.env.DB_PASSWORD
+const DB_NAME = process.env.DB_NAME
+const DB_USER = process.env.DB_USER
+const DB_HOST = process.env.DB_HOST
+const DB_PORT = process.env.DB_PORT
 
 module.exports = new Sequelize(
     DB_NAME,

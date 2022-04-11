@@ -1,11 +1,11 @@
-const config = require('config')
+require('dotenv').config()
 const express = require('express')
 const sequelize = require('./db')
 const errorHandler = require('./middleware/ErrorHandling')
 const router = require('./routes/index');
 const dataInit = require('./scheme/DataInit')
 
-const PORT = config.get('port') || 5000
+const PORT = process.env.PORT || 5000
 
 const app = express()
 
@@ -29,7 +29,7 @@ const start = async () => {
     try {
         await sequelize.authenticate()
         await sequelize.sync()
-        if (config.get("init_data")) {
+        if (process.env.INIT_DATA) {
             dataInit()
         }
         app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))

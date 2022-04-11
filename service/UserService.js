@@ -2,8 +2,7 @@ const {User, Role} = require('../models/models')
 const apiError = require('../error/ApiError')
 const {validationResult} = require('express-validator')
 const bcrypt = require('bcrypt')
-const config = require('config')
-const SALT_ROUNDS = parseInt(config.get("salt_rounds"), 10)
+const SALT_ROUNDS = process.env.SALT_ROUNDS
 const parsingErrors = require('../error/ErrorParser')
 
 function getFilteredUsers(users, roleName) {
