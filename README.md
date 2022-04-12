@@ -15,7 +15,7 @@
 |       Student marks for the subject | /students/:id/marks/subjects/:id  |       GET        | :white_large_square: |
 | List of marks for the last week (?) | /students/:id/marks/weeks/:number |       GET        | :white_large_square: |
 |                      List of groups |              /groups              |    GET, POST     |  :white_check_mark:  |
-|                          Group page |            /groups/:id            |       GET        |  :white_check_mark:  |
+|                          Group page |            /groups/:id            | GET, PUT, DELETE |  :white_check_mark:  |
 |                        Group rating |          /groups/rating           |       GET        | :white_large_square: |
 |                   Group miss rating |         /groups/:id/skips         |       GET        | :white_large_square: |
 |       List of marks for the subject |  /groups/:id/marks/subjects/:id   |       GET        | :white_large_square: |
