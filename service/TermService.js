@@ -9,7 +9,7 @@ class TermService {
             const terms = await Term.findAll()
             return res.json(terms)
         } catch (e) {
-            console.log(`Error in the TermController findAll method ${e}`)
+            console.log(`Error in the TermService findAll method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -27,7 +27,7 @@ class TermService {
             const term = await Term.create({startDate, endDate, number})
             return res.json(term)
         } catch (e) {
-            console.log(`Error in the TermController creation method ${e}`)
+            console.log(`Error in the TermService creation method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }

@@ -29,4 +29,5 @@
 |                               Terms |              /terms               |    GET, POST     |  :white_check_mark:  |
 |                           Term page |            /terms/:id             | GET, PUT, DELETE |  :white_check_mark:  |
 |                           Timetable |            /timetable             |       GET        |  :white_check_mark:  |
-|                            Subjects |             /subjects             |       GET        |  :white_check_mark:  |
+|                            Subjects |             /subjects             |    GET, POST     |  :white_check_mark:  |
+|                        Subject page |           /subjects/:id           | GET, PUT, DELETE |  :white_check_mark:  |
