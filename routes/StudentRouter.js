@@ -2,10 +2,11 @@ const Router = require('express')
 const router = new Router()
 const userController = require('../controller/UserController')
 const validator = require('../validator/EntityValidator')
+const STUDENT_ROLE_ID = 3
 
 router.post('/', validator.getUserCreationValidator(),
     function (req, res,next) {
-        req.roleId = 3
+        req.roleId = STUDENT_ROLE_ID
         next()
     },
     userController.create)

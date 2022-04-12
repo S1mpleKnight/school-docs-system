@@ -1,7 +1,6 @@
 const {Role, User, Group, Subject, Term, Mark, MarkRole} = require('../models/models')
 const bcrypt = require("bcrypt");
-const config = require('config')
-const SALT_ROUNDS = config.get('salt_rounds')
+const SALT_ROUNDS = process.env.SALT_ROUNDS
 
 function createPasswords() {
     let passwords = ['Vasya_12345', 'Petya_12345', 'Vanya_12345', 'Sasha_12345', 'Kolya_12345', 'Vlad_123456',

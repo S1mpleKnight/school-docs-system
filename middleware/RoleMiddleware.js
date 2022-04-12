@@ -1,8 +1,7 @@
 const apiError = require("../error/ApiError");
 const jwt = require("jsonwebtoken");
-const config = require('config')
 const {Role} = require("../models/models");
-const SECRET = config.get("secret")
+const SECRET = process.env.SECRET
 
 module.exports = function (role) {
     return async function (req, res, next) {

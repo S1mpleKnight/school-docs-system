@@ -1,7 +1,6 @@
 const apiError = require('../error/ApiError')
 const jwt = require('jsonwebtoken')
-const config = require('config')
-const SECRET = config.get("secret")
+const SECRET = process.env.SECRET
 
 module.exports = function (req, res, next) {
     if (req.method === "OPTIONS") {
