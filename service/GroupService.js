@@ -50,6 +50,63 @@ class GroupService {
             next(apiError.badRequest(e.message))
         }
     }
+
+    async delete(req, res, next) {
+        try {
+            const group = await Group.findOne({where: {"id": req.params.id}})
+            if (!group) {
+                return next(apiError.notFound(`Group with id: ${req.params.id} do not exist`))
+            }
+            await Group.destroy({
+                where: {
+                    id: group.id
+                }
+            })
+            const message = `Group with id ${group.id} was deleted successfully`
+            return res.json({message})
+        } catch (e) {
+            console.log(`Error in the GroupService delete method ${e}`)
+            next(apiError.badRequest(e.message))
+        }
+    }
+
+    async update(req, res, next) {
+        try {
+            const errors = validationResult(req)
+            if (!errors.isEmpty()) {
+                let errorMessages = parsingErrors(errors);
+                return next(apiError.badRequest([...errorMessages]))
+            }
+            const group = await Group.findOne({where: {"id": req.params.id}})
+            if (!group) {
+                return next(apiError.notFound(`Group with id: ${req.params.id} do not exist`))
+            }
+            let {letter, number} = req.body
+            if (letter) {
+                group.letter = letter
+            }
+            if (number) {
+                group.number = number
+            }
+            const result = await Group.update(
+                {
+                    "letter" : group.letter,
+                    "number" : group.number
+                },
+                {
+                    where : {
+                        "id" : req.params.id
+                    }
+                }
+            )
+            console.log(result)
+            const message = `Group with id: ${req.params.id} updated successfully`
+            return res.json({message})
+        } catch (e) {
+            console.log(`Error in the GroupService update method ${e}`)
+            next(apiError.badRequest(e.message))
+        }
+    }
 }
 
 module.exports = new GroupService()

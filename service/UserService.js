@@ -40,7 +40,7 @@ class UserService {
             })
             return res.json(user)
         } catch (e) {
-            console.log(`Error in the UserController creation method ${e}`)
+            console.log(`Error in the UserService creation method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -60,7 +60,7 @@ class UserService {
             const students = getFilteredUsers(responseBody, 'STUDENT')
             return res.json(students)
         } catch (e) {
-            console.log(`Error in the UserController findAllStudents method ${e}`)
+            console.log(`Error in the UserService findAllStudents method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -80,7 +80,7 @@ class UserService {
             const teachers = getFilteredUsers(responseBody, 'TEACHER')
             return res.json(teachers)
         } catch (e) {
-            console.log(`Error in the UserController findAllTeachers method ${e}`)
+            console.log(`Error in the UserService findAllTeachers method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -94,7 +94,7 @@ class UserService {
             const {id, login, firstName, lastName, middleName} = user
             return res.json({id, login, firstName, lastName, middleName})
         } catch (e) {
-            console.log(`Error in the UserController findById method ${e}`)
+            console.log(`Error in the UserService findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -108,7 +108,7 @@ class UserService {
             const {id, login, firstName, lastName, middleName} = user
             return res.json({id, login, firstName, lastName, middleName})
         } catch (e) {
-            console.log(`Error in the UserController findById method ${e}`)
+            console.log(`Error in the UserService findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -127,7 +127,7 @@ class UserService {
             const message = `Teacher with id ${teacher.id} was deleted successfully`
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the UserController findById method ${e}`)
+            console.log(`Error in the UserService findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -146,7 +146,7 @@ class UserService {
             const message = `Student with id ${student.id} was deleted successfully`
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the UserController findById method ${e}`)
+            console.log(`Error in the UserService findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -177,7 +177,7 @@ class UserService {
             }
             if (password) {
                 if (password.length < 10 || password.length > 50) {
-                    console.log('Error in UserController updateTeacher method: Invalid password (from 10 to 50)')
+                    console.log('Error in UserService updateTeacher method: Invalid password (from 10 to 50)')
                     return next(apiError.badRequest('Invalid password (from 10 to 50)'))
                 }
                 teacher.passwordHash =  bcrypt.hashSync(password, SALT_ROUNDS)
@@ -200,7 +200,7 @@ class UserService {
             const message = `Teacher with id: ${req.params.id} updated successfully`
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the UserController findById method ${e}`)
+            console.log(`Error in the UserService findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -231,7 +231,7 @@ class UserService {
             }
             if (password) {
                 if (password.length < 10 || password.length > 50) {
-                    console.log('Error in UserController updateStudent method: Invalid password (from 10 to 50)')
+                    console.log('Error in UserService updateStudent method: Invalid password (from 10 to 50)')
                     return next(apiError.badRequest('Invalid password (from 10 to 50)'))
                 }
                 student.passwordHash =  bcrypt.hashSync(password, SALT_ROUNDS)
@@ -254,7 +254,7 @@ class UserService {
             const message = `Student with id: ${req.params.id} updated successfully`
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the UserController findById method ${e}`)
+            console.log(`Error in the UserService findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
