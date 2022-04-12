@@ -15,7 +15,7 @@ class GroupService {
             }
             return res.json(responseBody)
         } catch (e) {
-            console.log(`Error in the GroupController findAll method ${e}`)
+            console.log(`Error in the GroupService findAll method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -32,7 +32,7 @@ class GroupService {
             const group = await Group.create({letter, number})
             return res.json(group)
         } catch (e) {
-            console.log(`Error in the GroupController creation method ${e}`)
+            console.log(`Error in the GroupService creation method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -46,7 +46,7 @@ class GroupService {
             const {id, letter, number} = group
             return res.json({id, letter, number})
         } catch (e) {
-            console.log(`Error in the GroupController findById method ${e}`)
+            console.log(`Error in the GroupService findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }

@@ -26,6 +26,7 @@
 |                      Teacher's page |           /teachers/:id           | GET, PUT, DELETE |  :white_check_mark:  |
 |                    Teacher's groups |       /teachers/:id/groups        |       GET        | :white_large_square: |
 |                               Login |              /login               |       POST       |  :white_check_mark:  |
-|                               Terms |              /terms               |       GET        |  :white_check_mark:  |
+|                               Terms |              /terms               |    GET, POST     |  :white_check_mark:  |
+|                           Term page |            /terms/:id             | GET, PUT, DELETE |  :white_check_mark:  |
 |                           Timetable |            /timetable             |       GET        |  :white_check_mark:  |
 |                            Subjects |             /subjects             |       GET        |  :white_check_mark:  |

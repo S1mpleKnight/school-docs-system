@@ -26,8 +26,17 @@ function getUserUpdateValidator() {
     ];
 }
 
+function getTermValidator() {
+    return[
+        check('startDate', 'Invalid start date').trim().isDate(),
+        check('endDate', 'Invalid end date').trim().isDate(),
+        check('number', 'Invalid term number').trim().isLength({max: 2, min: 1}).not().matches(/[^0-9]/),
+    ]
+}
+
 module.exports = {
     getUserCreationValidator,
     getGroupCreationValidator,
-    getUserUpdateValidator
+    getUserUpdateValidator,
+    getTermValidator
 }
