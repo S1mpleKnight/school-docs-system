@@ -1,4 +1,4 @@
-const {User, Role} = require('../models/models')
+const {User, Role, Group} = require('../models/models')
 const apiError = require('../error/ApiError')
 const {validationResult} = require('express-validator')
 const bcrypt = require('bcrypt')
@@ -23,10 +23,14 @@ class UserService {
                 let errorMessages = parsingErrors(errors);
                 return next(apiError.badRequest([...errorMessages]))
             }
-            const {firstName, lastName, middleName, login, password} = req.body
+            const {firstName, lastName, middleName, login, password, groupId} = req.body
             const candidate = await User.findOne({where: {login: login}})
             if (candidate) {
                 return next(apiError.unprocessableEntity("User with this login already exists"))
+            }
+            const group = await Group.findOne({where: {"id": groupId}})
+            if (!group) {
+                return next(apiError.notFound(`Group with id: ${groupId} does not exist`))
             }
             const roleId = req.roleId
             const passwordHash = bcrypt.hashSync(password, SALT_ROUNDS)
@@ -36,7 +40,8 @@ class UserService {
                 middleName,
                 login,
                 passwordHash,
-                roleId
+                roleId,
+                groupId
             })
             return res.json(user)
         } catch (e) {
@@ -99,7 +104,7 @@ class UserService {
         }
     }
 
-    async findTeacherById(req, res, next){
+    async findTeacherById(req, res, next) {
         try {
             const user = await User.findOne({where: {"id": req.params.id}})
             if (!user || user.roleId !== 2) {
@@ -162,7 +167,7 @@ class UserService {
             if (!teacher || teacher.roleId !== 2) {
                 return next(apiError.notFound(`Teacher with id: ${req.params.id} do not exist`))
             }
-            let {firstName, lastName, middleName, login, password} = req.body
+            let {firstName, lastName, middleName, login, password, groupId} = req.body
             if (firstName) {
                 teacher.firstName = firstName
             }
@@ -175,24 +180,30 @@ class UserService {
             if (login) {
                 teacher.login = login
             }
+            if (await Group.findOne({where: {"id": groupId}})) {
+                teacher.groupId = groupId
+            } else {
+                return next(apiError.notFound(`Group with id: ${groupId} does not exist`))
+            }
             if (password) {
                 if (password.length < 10 || password.length > 50) {
                     console.log('Error in UserService updateTeacher method: Invalid password (from 10 to 50)')
                     return next(apiError.badRequest('Invalid password (from 10 to 50)'))
                 }
-                teacher.passwordHash =  bcrypt.hashSync(password, SALT_ROUNDS)
+                teacher.passwordHash = bcrypt.hashSync(password, SALT_ROUNDS)
             }
             const result = await User.update(
                 {
-                    "firstName" : teacher.firstName,
-                    "lastName" : teacher.lastName,
-                    "middleName" : teacher.middleName,
-                    "passwordHash" : teacher.passwordHash,
-                    "login" : teacher.login
+                    "firstName": teacher.firstName,
+                    "lastName": teacher.lastName,
+                    "middleName": teacher.middleName,
+                    "passwordHash": teacher.passwordHash,
+                    "login": teacher.login,
+                    "groupId": teacher.groupId
                 },
                 {
-                    where : {
-                        "id" : req.params.id
+                    where: {
+                        "id": req.params.id
                     }
                 }
             )
@@ -216,7 +227,7 @@ class UserService {
             if (!student || student.roleId !== 3) {
                 return next(apiError.notFound(`Student with id: ${req.params.id} do not exist`))
             }
-            let {firstName, lastName, middleName, login, password} = req.body
+            let {firstName, lastName, middleName, login, password, groupId} = req.body
             if (firstName) {
                 student.firstName = firstName
             }
@@ -229,24 +240,30 @@ class UserService {
             if (login) {
                 student.login = login
             }
+            if (await Group.findOne({where: {"id": groupId}})) {
+                student.groupId = groupId
+            } else {
+                return next(apiError.notFound(`Group with id: ${groupId} does not exist`))
+            }
             if (password) {
                 if (password.length < 10 || password.length > 50) {
                     console.log('Error in UserService updateStudent method: Invalid password (from 10 to 50)')
                     return next(apiError.badRequest('Invalid password (from 10 to 50)'))
                 }
-                student.passwordHash =  bcrypt.hashSync(password, SALT_ROUNDS)
+                student.passwordHash = bcrypt.hashSync(password, SALT_ROUNDS)
             }
             const result = await User.update(
                 {
-                    "firstName" : student.firstName,
-                    "lastName" : student.lastName,
-                    "middleName" : student.middleName,
-                    "passwordHash" : student.passwordHash,
-                    "login" : student.login
+                    "firstName": student.firstName,
+                    "lastName": student.lastName,
+                    "middleName": student.middleName,
+                    "passwordHash": student.passwordHash,
+                    "login": student.login,
+                    "groupId": student.groupId
                 },
                 {
-                    where : {
-                        "id" : req.params.id
+                    where: {
+                        "id": req.params.id
                     }
                 }
             )
