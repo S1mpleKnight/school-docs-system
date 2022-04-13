@@ -88,18 +88,17 @@ class GroupService {
             if (number) {
                 group.number = number
             }
-            const result = await Group.update(
+           await Group.update(
                 {
-                    "letter" : group.letter,
-                    "number" : group.number
+                    "letter": group.letter,
+                    "number": group.number
                 },
                 {
-                    where : {
-                        "id" : req.params.id
+                    where: {
+                        "id": req.params.id
                     }
                 }
             )
-            console.log(result)
             const message = `Group with id: ${req.params.id} updated successfully`
             return res.json({message})
         } catch (e) {

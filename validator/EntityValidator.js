@@ -40,10 +40,33 @@ function getSubjectValidator() {
     ]
 }
 
+function getMarkCreationValidator() {
+    return [
+        check('studentId', 'Invalid student id').isNumeric(),
+        check('teacherId', 'Invalid teacher id').isNumeric(),
+        check('markRoleId', 'Invalid mark role id').isNumeric(),
+        check('subjectId', 'Invalid subject id').isNumeric(),
+        check('termId', 'Invalid term id').isNumeric(),
+        check('value', 'Invalid mark value').isNumeric().isLength({max: 2, min: 1}),
+        check('date', 'Invalid date ').isDate()
+    ]
+}
+
+function getMarkUpdateValidator() {
+    return [
+        check('studentId', 'Invalid student id').isNumeric(),
+        check('subjectId', 'Invalid subject id').isNumeric(),
+        check('date', 'Invalid date ').isDate(),
+        check('value', 'Invalid mark value').isNumeric().isLength({max: 2, min: 1})
+    ]
+}
+
 module.exports = {
     getUserCreationValidator,
     getGroupCreationValidator,
     getUserUpdateValidator,
     getTermValidator,
-    getSubjectValidator
+    getSubjectValidator,
+    getMarkUpdateValidator,
+    getMarkCreationValidator
 }

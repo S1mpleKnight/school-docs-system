@@ -252,7 +252,7 @@ class UserService {
                 }
                 student.passwordHash = bcrypt.hashSync(password, SALT_ROUNDS)
             }
-            const result = await User.update(
+            await User.update(
                 {
                     "firstName": student.firstName,
                     "lastName": student.lastName,
@@ -267,7 +267,6 @@ class UserService {
                     }
                 }
             )
-            console.log(result)
             const message = `Student with id: ${req.params.id} updated successfully`
             return res.json({message})
         } catch (e) {

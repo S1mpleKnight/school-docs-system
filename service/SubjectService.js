@@ -43,7 +43,7 @@ class SubjectService {
             next(apiError.badRequest(e.message))
         }
     }
-    
+
     async delete(req, res, next) {
         try {
             const subject = await Subject.findOne({where: {"id": req.params.id}})
@@ -62,7 +62,7 @@ class SubjectService {
             next(apiError.badRequest(e.message))
         }
     }
-    
+
     async update(req, res, next) {
         try {
             const errors = validationResult(req)
@@ -78,17 +78,16 @@ class SubjectService {
             if (name) {
                 subject.name = name
             }
-            const result = await subject.update(
+            await subject.update(
                 {
-                    "name" : subject.name
+                    "name": subject.name
                 },
                 {
-                    where : {
-                        "id" : req.params.id
+                    where: {
+                        "id": req.params.id
                     }
                 }
             )
-            console.log(result)
             const message = `Subject with id: ${req.params.id} updated successfully`
             return res.json({message})
         } catch (e) {

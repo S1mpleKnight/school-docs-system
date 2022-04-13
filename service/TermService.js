@@ -86,19 +86,18 @@ class TermService {
             if (number) {
                 term.number = number
             }
-            const result = await Term.update(
+            await Term.update(
                 {
-                    "endDate" : term.endDate,
-                    "startDate" : term.startDate,
-                    "number" : term.number
+                    "endDate": term.endDate,
+                    "startDate": term.startDate,
+                    "number": term.number
                 },
                 {
-                    where : {
-                        "id" : req.params.id
+                    where: {
+                        "id": req.params.id
                     }
                 }
             )
-            console.log(result)
             const message = `Term with id: ${req.params.id} updated successfully`
             return res.json({message})
         } catch (e) {

@@ -6,7 +6,15 @@ class MarkController {
     }
 
     async create(req, res, next) {
+        await service.create(req, res, next)
+    }
 
+    async update(req, res, next) {
+        await service.update(req, res, next)
+    }
+
+    async delete(req, res, next) {
+        await service.delete(req, res, next)
     }
 
     async findStudentTermMarks(req, res, next) {

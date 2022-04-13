@@ -16,8 +16,31 @@ class TimetableService {
 
     }
 
-    async findById(req, res) {
+    async findById(req, res, next) {
 
+    }
+
+    async update(req, res, next) {
+
+    }
+
+    async delete(req, res, next) {
+        try {
+            const lesson = await Timetable.findOne({where: {"id": req.params.id}})
+            if (!lesson) {
+                return next(apiError.notFound(`timetable with id: ${req.params.id} do not exist`))
+            }
+            await Timetable.destroy({
+                where: {
+                    id: lesson.id
+                }
+            })
+            const message = `Lesson with id ${lesson.id} was deleted successfully`
+            return res.json({message})
+        } catch (e) {
+            console.log(`Error in the TimetableService delete method ${e}`)
+            next(apiError.badRequest(e.message))
+        }
     }
 }
 
