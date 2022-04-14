@@ -58,9 +58,9 @@ class UserService {
             const users = JSON.parse(JSON.stringify(rawUsers))
             let responseBody = [];
             for (const user of users) {
-                const {id, login, firstName, lastName, middleName, roleId} = user
+                const {id, login, firstName, lastName, middleName, roleId, groupId} = user
                 const roleName = roles[roleId - 1].name
-                responseBody.push({id, login, firstName, lastName, middleName, roleName})
+                responseBody.push({id, login, firstName, lastName, middleName, roleName, groupId})
             }
             const students = getFilteredUsers(responseBody, 'STUDENT')
             return res.json(students)
@@ -78,9 +78,9 @@ class UserService {
             const users = JSON.parse(JSON.stringify(rawUsers))
             let responseBody = [];
             for (const user of users) {
-                const {id, login, firstName, lastName, middleName, roleId} = user
+                const {id, login, firstName, lastName, middleName, roleId, groupId} = user
                 const roleName = roles[roleId - 1].name
-                responseBody.push({id, login, firstName, lastName, middleName, roleName})
+                responseBody.push({id, login, firstName, lastName, middleName, roleName, groupId})
             }
             const teachers = getFilteredUsers(responseBody, 'TEACHER')
             return res.json(teachers)
@@ -94,12 +94,33 @@ class UserService {
         try {
             const user = await User.findOne({where: {"id": req.params.id}})
             if (!user || user.roleId !== 3) {
-                return next(apiError.notFound(`Student with id: ${req.params.id} do not exist`))
+                return next(apiError.notFound(`Student with id: ${req.params.id} does not exist`))
             }
             const {id, login, firstName, lastName, middleName} = user
             return res.json({id, login, firstName, lastName, middleName})
         } catch (e) {
             console.log(`Error in the UserService findById method ${e}`)
+            next(apiError.badRequest(e.message))
+        }
+    }
+
+    async findStudentsByGroup(req, res, next) {
+        try {
+            const group = await Group.findByPk(req.params.id)
+            if (!group) {
+                return next(apiError.notFound(`Group with id: ${req.params.id} does not exist`))
+            }
+            const students = await User.findAll({where: {"groupId" : req.params.id}})
+            let result = []
+            for (let student of students) {
+                if (student.roleId === 3) {
+                    const {firstName, lastName, middleName} = student
+                    result.push({firstName, lastName, middleName})
+                }
+            }
+            return res.json(result)
+        } catch (e) {
+            console.log(`Error in the UserService findStudentsByGroup method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -110,8 +131,8 @@ class UserService {
             if (!user || user.roleId !== 2) {
                 return next(apiError.notFound(`Teacher with id: ${req.params.id} do not exist`))
             }
-            const {id, login, firstName, lastName, middleName} = user
-            return res.json({id, login, firstName, lastName, middleName})
+            const {id, login, firstName, lastName, middleName, groupId} = user
+            return res.json({id, login, firstName, lastName, middleName, groupId})
         } catch (e) {
             console.log(`Error in the UserService findById method ${e}`)
             next(apiError.badRequest(e.message))

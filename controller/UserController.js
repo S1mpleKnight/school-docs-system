@@ -36,6 +36,10 @@ class UserController {
     async updateStudent(req, res, next) {
         await service.updateStudent(req, res, next)
     }
+
+    async findStudentsByGroup(req, res, next) {
+        await service.findStudentsByGroup(req, res, next)
+    }
 }
 
 module.exports = new UserController()

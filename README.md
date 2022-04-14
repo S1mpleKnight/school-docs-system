@@ -15,7 +15,7 @@
 | List of marks for the last week (?) | /students/:id/marks/weeks/:number |          GET           | :white_large_square: |
 |                      List of groups |              /groups              | GET, POST, PUT, DELETE |  :white_check_mark:  |
 |                        Group rating |          /groups/rating           |          GET           | :white_large_square: |
-|       List of students of the group |       /groups/:id/students        |          GET           | :white_large_square: |
+|       List of students of the group |       /groups/:id/students        |          GET           |  :white_check_mark:  |
 |       List of marks for the subject |  /groups/:id/marks/subjects/:id   |          GET           | :white_large_square: |
 |       List of subjects for the term |  /groups/:id/subjects/terms/:id   |          GET           | :white_large_square: |
 |                    List of vouchers |             /vouchers             |       GET, POST        |  :white_check_mark:  |
