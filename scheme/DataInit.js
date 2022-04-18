@@ -1,13 +1,13 @@
-const {Role, User, Group, Subject, Term, Mark, MarkRole} = require('../models/models')
+const {Role, User, Group, Subject, Term, Mark, MarkRole, Timetable} = require('../models/models')
 const bcrypt = require("bcrypt");
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS, 10)
 
 function createPasswords() {
     let passwords = ['Vasya_12345', 'Petya_12345', 'Vanya_12345', 'Sasha_12345', 'Kolya_12345', 'Vlad_123456',
-                    'Lesha_12345', 'Kostya_12345', 'Tolik_12345', 'Vitalik_12345', 'OlgaMuhina_89', 'NadezhdaKlukvina_75', 'adminadmin']
+        'Lesha_12345', 'Kostya_12345', 'Tolik_12345', 'Vitalik_12345', 'OlgaMuhina_89', 'NadezhdaKlukvina_75', 'adminadmin']
     let hashedPasswords = []
     for (password of passwords) {
-         hashedPasswords.push(bcrypt.hashSync(password, SALT_ROUNDS))
+        hashedPasswords.push(bcrypt.hashSync(password, SALT_ROUNDS))
     }
     return hashedPasswords
 }
@@ -251,6 +251,74 @@ async function init() {
                 termId: 1
             }
         ])
+        await Timetable.bulkCreate(
+            [
+                {
+                    teacher: 2,
+                    subject: 1,
+                    date: firstTermStart,
+                    lessonNumber: 1,
+                    groupId: 1,
+                    termId: 1
+                },
+                {
+                    teacher: 2,
+                    subject: 2,
+                    date: firstTermStart,
+                    lessonNumber: 2,
+                    groupId: 1,
+                    termId: 1
+                },
+                {
+                    teacher: 3,
+                    subject: 3,
+                    date: firstTermStart,
+                    lessonNumber: 3,
+                    groupId: 1,
+                    termId: 1
+                },
+                {
+                    teacher: 3,
+                    subject: 4,
+                    date: firstTermStart,
+                    lessonNumber: 4,
+                    groupId: 1,
+                    termId: 1
+                },
+                {
+                    teacher: 3,
+                    subject: 3,
+                    date: firstTermStart,
+                    lessonNumber: 1,
+                    groupId: 2,
+                    termId: 1
+                },
+                {
+                    teacher: 3,
+                    subject: 4,
+                    date: firstTermStart,
+                    lessonNumber: 2,
+                    groupId: 2,
+                    termId: 1
+                },
+                {
+                    teacher: 2,
+                    subject: 1,
+                    date: firstTermStart,
+                    lessonNumber: 3,
+                    groupId: 2,
+                    termId: 1
+                },
+                {
+                    teacher: 2,
+                    subject: 2,
+                    date: firstTermStart,
+                    lessonNumber: 4,
+                    groupId: 2,
+                    termId: 1
+                },
+            ]
+        )
     } catch (e) {
         console.log('\x1b[31m%s\x1b[0m', `Error in the initData method: ${e.message}`)
     }

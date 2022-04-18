@@ -61,7 +61,7 @@ const Timetable = sequelize.define('timetable', {
         }
     },
     date: {type: DataTypes.DATEONLY, primaryKey: true},
-    lessonNumber: {type: DataTypes.SMALLINT, allowNull: false, unsigned: true}
+    lessonNumber: {type: DataTypes.SMALLINT, allowNull: false, unsigned: true, primaryKey: true}
 }, {
     freezeTableName: true,
     timestamps: false

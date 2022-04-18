@@ -21,7 +21,7 @@
 |                    List of vouchers |             /vouchers             |       GET, POST        |  :white_check_mark:  |
 |                        Voucher page |           /vouchers/:id           |          GET           |  :white_check_mark:  |
 |                    List of teachers |             /teachers             | GET, POST, PUT, DELETE |  :white_check_mark:  |
-|                    Teacher's groups |       /teachers/:id/groups        |          GET           | :white_large_square: |
+|                    Teacher's groups |       /teachers/:id/groups        |          GET           |  :white_check_mark:  |
 |                               Login |              /login               |          POST          |  :white_check_mark:  |
 |                               Terms |              /terms               | GET, POST, PUT, DELETE |  :white_check_mark:  |
 |                           Timetable |            /timetable             |          GET           |  :white_check_mark:  |

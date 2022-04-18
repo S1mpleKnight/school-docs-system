@@ -1,4 +1,4 @@
-const service = require('../service/SubjectService')
+const service = require('../service/TimetableService')
 
 class TimetableController {
     async findAll(req, res, next) {
@@ -19,6 +19,10 @@ class TimetableController {
 
     async delete(req, res, next) {
         await service.delete(req, res, next)
+    }
+
+    async findAllGroupsByTeacher(req, res, next) {
+        await service.findAllGroupsByTeacher(req, res, next)
     }
 }
 
