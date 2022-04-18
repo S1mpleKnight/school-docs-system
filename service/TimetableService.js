@@ -7,7 +7,7 @@ class TimetableService {
             const lessons = await Timetable.findAll()
             return res.json(lessons)
         } catch (e) {
-            console.log(`Error in the TimetableController findAll method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the TimetableController findAll method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -38,7 +38,7 @@ class TimetableService {
             const message = `Lesson with id ${lesson.id} was deleted successfully`
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the TimetableService delete method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the TimetableService delete method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }

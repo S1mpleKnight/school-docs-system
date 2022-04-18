@@ -69,7 +69,7 @@ const Timetable = sequelize.define('timetable', {
 
 const Group = sequelize.define('group', {
     id: {type: DataTypes.SMALLINT, primaryKey: true, autoIncrement: true, unsigned: true},
-    letter: {type: DataTypes.STRING(1), allowNull: false},
+    letter: {type: DataTypes.CHAR(1), allowNull: false},
     number: {type: DataTypes.SMALLINT, unsigned: true, allowNull: false}
 }, {
     timestamps: false

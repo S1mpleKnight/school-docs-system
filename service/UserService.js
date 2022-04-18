@@ -24,13 +24,15 @@ class UserService {
                 return next(apiError.badRequest([...errorMessages]))
             }
             const {firstName, lastName, middleName, login, password, groupId} = req.body
-            const candidate = await User.findOne({where: {login: login}})
+            const candidate = await User.findOne({where: {"login": login}})
             if (candidate) {
                 return next(apiError.unprocessableEntity("User with this login already exists"))
             }
-            const group = await Group.findOne({where: {"id": groupId}})
-            if (!group) {
-                return next(apiError.notFound(`Group with id: ${groupId} does not exist`))
+            if (groupId) {
+                const group = await Group.findOne({where: {"id": groupId}})
+                if (!group) {
+                    return next(apiError.notFound(`Group with id: ${groupId} does not exist`))
+                }
             }
             const roleId = req.roleId
             const passwordHash = bcrypt.hashSync(password, SALT_ROUNDS)
@@ -45,7 +47,7 @@ class UserService {
             })
             return res.json(user)
         } catch (e) {
-            console.log(`Error in the UserService creation method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the UserService creation method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -65,7 +67,7 @@ class UserService {
             const students = getFilteredUsers(responseBody, 'STUDENT')
             return res.json(students)
         } catch (e) {
-            console.log(`Error in the UserService findAllStudents method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findAllStudents method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -85,7 +87,7 @@ class UserService {
             const teachers = getFilteredUsers(responseBody, 'TEACHER')
             return res.json(teachers)
         } catch (e) {
-            console.log(`Error in the UserService findAllTeachers method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findAllTeachers method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -99,7 +101,7 @@ class UserService {
             const {id, login, firstName, lastName, middleName} = user
             return res.json({id, login, firstName, lastName, middleName})
         } catch (e) {
-            console.log(`Error in the UserService findById method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -120,7 +122,7 @@ class UserService {
             }
             return res.json(result)
         } catch (e) {
-            console.log(`Error in the UserService findStudentsByGroup method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findStudentsByGroup method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -134,7 +136,7 @@ class UserService {
             const {id, login, firstName, lastName, middleName, groupId} = user
             return res.json({id, login, firstName, lastName, middleName, groupId})
         } catch (e) {
-            console.log(`Error in the UserService findById method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -153,7 +155,7 @@ class UserService {
             const message = `Teacher with id ${teacher.id} was deleted successfully`
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the UserService findById method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -172,7 +174,7 @@ class UserService {
             const message = `Student with id ${student.id} was deleted successfully`
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the UserService findById method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -208,7 +210,7 @@ class UserService {
             }
             if (password) {
                 if (password.length < 10 || password.length > 50) {
-                    console.log('Error in UserService updateTeacher method: Invalid password (from 10 to 50)')
+                    console.log('\x1b[31m%s\x1b[0m', 'Error in UserService updateTeacher method: Invalid password (from 10 to 50)')
                     return next(apiError.badRequest('Invalid password (from 10 to 50)'))
                 }
                 teacher.passwordHash = bcrypt.hashSync(password, SALT_ROUNDS)
@@ -228,11 +230,11 @@ class UserService {
                     }
                 }
             )
-            console.log(result)
+            console.log('\x1b[31m%s\x1b[0m', result)
             const message = `Teacher with id: ${req.params.id} updated successfully`
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the UserService findById method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -268,7 +270,7 @@ class UserService {
             }
             if (password) {
                 if (password.length < 10 || password.length > 50) {
-                    console.log('Error in UserService updateStudent method: Invalid password (from 10 to 50)')
+                    console.log('\x1b[31m%s\x1b[0m', 'Error in UserService updateStudent method: Invalid password (from 10 to 50)')
                     return next(apiError.badRequest('Invalid password (from 10 to 50)'))
                 }
                 student.passwordHash = bcrypt.hashSync(password, SALT_ROUNDS)
@@ -291,7 +293,7 @@ class UserService {
             const message = `Student with id: ${req.params.id} updated successfully`
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the UserService findById method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }

@@ -15,7 +15,7 @@ class GroupService {
             }
             return res.json(responseBody)
         } catch (e) {
-            console.log(`Error in the GroupService findAll method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the GroupService findAll method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -27,12 +27,12 @@ class GroupService {
                 let errorMessages = parsingErrors(errors);
                 return next(apiError.badRequest([...errorMessages]))
             }
-            const {formLetter, number} = req.body
-            const letter = String(formLetter).toUpperCase().trim()
+            let {letter, number} = req.body
+            letter = letter.toUpperCase()
             const group = await Group.create({letter, number})
             return res.json(group)
         } catch (e) {
-            console.log(`Error in the GroupService creation method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the GroupService creation method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -46,7 +46,7 @@ class GroupService {
             const {id, letter, number} = group
             return res.json({id, letter, number})
         } catch (e) {
-            console.log(`Error in the GroupService findById method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the GroupService findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -65,7 +65,7 @@ class GroupService {
             const message = `Group with id ${group.id} was deleted successfully`
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the GroupService delete method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the GroupService delete method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -102,7 +102,7 @@ class GroupService {
             const message = `Group with id: ${req.params.id} updated successfully`
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the GroupService update method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the GroupService update method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }

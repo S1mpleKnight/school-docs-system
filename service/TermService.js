@@ -9,7 +9,7 @@ class TermService {
             const terms = await Term.findAll()
             return res.json(terms)
         } catch (e) {
-            console.log(`Error in the TermService findAll method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the TermService findAll method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -27,7 +27,7 @@ class TermService {
             const term = await Term.create({startDate, endDate, number})
             return res.json(term)
         } catch (e) {
-            console.log(`Error in the TermService creation method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the TermService creation method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -41,7 +41,7 @@ class TermService {
             const {id, startDate, endDate, number} = term
             return res.json({id, startDate, endDate, number})
         } catch (e) {
-            console.log(`Error in the TermService findById method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the TermService findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -60,7 +60,7 @@ class TermService {
             const message = `Term with id ${term.id} was deleted successfully`
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the TermService delete method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the TermService delete method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -101,7 +101,7 @@ class TermService {
             const message = `Term with id: ${req.params.id} updated successfully`
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the TermService update method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the TermService update method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }

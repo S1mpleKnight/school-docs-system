@@ -9,7 +9,7 @@ class MarkService {
             const marks = await Mark.findAll()
             return res.json(marks)
         } catch (e) {
-            console.log(`Error in the MarkService findAll method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the MarkService findAll method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -45,7 +45,7 @@ class MarkService {
             const mark = await Mark.create({student, teacher, subject, termId, value, markRoleId, date})
             return res.json(mark)
         } catch (e) {
-            console.log(`Error in the MarkService creation method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the MarkService creation method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -81,7 +81,7 @@ class MarkService {
             const message = `Mark was deleted successfully`
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the MarkService delete method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the MarkService delete method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -124,7 +124,7 @@ class MarkService {
             const message = "Mark has been updated successfully"
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the MarkService update method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the MarkService update method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -159,7 +159,7 @@ class MarkService {
             }
             return res.json(fullInfo)
         } catch (e) {
-            console.log(`Error in the MarkController findStudentTermMarks method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the MarkController findStudentTermMarks method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }

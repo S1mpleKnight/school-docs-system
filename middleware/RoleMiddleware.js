@@ -20,7 +20,7 @@ module.exports = function (role) {
             }
             next()
         } catch (e) {
-            console.log(`RoleMiddleware error: ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `RoleMiddleware error: ${e}`)
             return next(apiError.badRequest("You are not authorized"))
         }
     }

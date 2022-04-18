@@ -9,7 +9,7 @@ class SubjectService {
             const subjects = await Subject.findAll()
             return res.json(subjects)
         } catch (e) {
-            console.log(`Error in the SubjectController findAll method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the SubjectController findAll method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -25,7 +25,7 @@ class SubjectService {
             const subject = await Subject.create({name})
             return res.json(subject)
         } catch (e) {
-            console.log(`Error in the subjectController creation method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the subjectController creation method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -39,7 +39,7 @@ class SubjectService {
             const {id, name} = subject
             return res.json({id, name})
         } catch (e) {
-            console.log(`Error in the SubjectService findById method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the SubjectService findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -58,7 +58,7 @@ class SubjectService {
             const message = `Subject with id ${subject.id} was deleted successfully`
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the SubjectService delete method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the SubjectService delete method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -91,7 +91,7 @@ class SubjectService {
             const message = `Subject with id: ${req.params.id} updated successfully`
             return res.json({message})
         } catch (e) {
-            console.log(`Error in the subjectService update method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the subjectService update method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }

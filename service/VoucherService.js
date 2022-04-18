@@ -13,7 +13,7 @@ class VoucherService {
             }
             return res.json(responseBody)
         } catch (e) {
-            console.log(`Error in the VoucherController findAll method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the VoucherController findAll method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -26,7 +26,7 @@ class VoucherService {
             const id = voucher.id
             return res.json({id, documentUrl, uploadDate})
         } catch (e) {
-            console.log(`Error in the VoucherController upload method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the VoucherController upload method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
@@ -40,7 +40,7 @@ class VoucherService {
             const {documentUrl, uploadDate, id} = voucher
             return res.json({id, documentUrl, uploadDate})
         } catch (e) {
-            console.log(`Error in the VoucherController findById method ${e}`)
+            console.log('\x1b[31m%s\x1b[0m', `Error in the VoucherController findById method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }

@@ -252,7 +252,7 @@ async function init() {
             }
         ])
     } catch (e) {
-        console.log(`Error in the initData method: ${e.message}`)
+        console.log('\x1b[31m%s\x1b[0m', `Error in the initData method: ${e.message}`)
     }
 }
 
