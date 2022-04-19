@@ -1,4 +1,4 @@
-const {Role, User, Group, Subject, Term, Mark, MarkRole, Timetable} = require('../models/models')
+const {Role, User, Group, Subject, Term, Mark, MarkRole, Positions} = require('../models/models')
 const bcrypt = require("bcrypt");
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS, 10)
 
@@ -160,10 +160,10 @@ async function init() {
                 name: "Chemistry"
             }
         ])
-        const firstTermStart = new Date(2021, 8, 1)
-        const firstTermEnd = new Date(2021, 9, 29)
-        const secondTermStart = new Date(2021, 10, 8)
-        const secondTermEnd = new Date(2021, 11, 24)
+        const firstTermStart = new Date(2022, 8, 1)
+        const firstTermEnd = new Date(2022, 9, 29)
+        const secondTermStart = new Date(2022, 10, 8)
+        const secondTermEnd = new Date(2022, 11, 24)
         const thirdTermStart = new Date(2022, 0, 10)
         const thirdTermEnd = new Date(2022, 2, 25)
         const fourthTermStart = new Date(2022, 3, 4)
@@ -251,71 +251,55 @@ async function init() {
                 termId: 1
             }
         ])
-        await Timetable.bulkCreate(
+        await Positions.bulkCreate(
             [
                 {
                     teacher: 2,
                     subject: 1,
-                    date: firstTermStart,
-                    lessonNumber: 1,
                     groupId: 1,
-                    termId: 1
+                    term: 1
                 },
                 {
                     teacher: 2,
                     subject: 2,
-                    date: firstTermStart,
-                    lessonNumber: 2,
                     groupId: 1,
-                    termId: 1
+                    term: 2
                 },
                 {
                     teacher: 3,
                     subject: 3,
-                    date: firstTermStart,
-                    lessonNumber: 3,
                     groupId: 1,
-                    termId: 1
+                    term: 3
                 },
                 {
                     teacher: 3,
                     subject: 4,
-                    date: firstTermStart,
-                    lessonNumber: 4,
                     groupId: 1,
-                    termId: 1
+                    term: 4
                 },
                 {
                     teacher: 3,
                     subject: 3,
-                    date: firstTermStart,
-                    lessonNumber: 1,
                     groupId: 2,
-                    termId: 1
+                    term: 1
                 },
                 {
                     teacher: 3,
                     subject: 4,
-                    date: firstTermStart,
-                    lessonNumber: 2,
                     groupId: 2,
-                    termId: 1
+                    term: 2
                 },
                 {
                     teacher: 2,
                     subject: 1,
-                    date: firstTermStart,
-                    lessonNumber: 3,
                     groupId: 2,
-                    termId: 1
+                    term: 3
                 },
                 {
                     teacher: 2,
                     subject: 2,
-                    date: firstTermStart,
-                    lessonNumber: 4,
                     groupId: 2,
-                    termId: 1
+                    term: 4
                 },
             ]
         )

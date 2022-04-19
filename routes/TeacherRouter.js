@@ -1,7 +1,7 @@
 const Router = require('express')
 const router = new Router()
 const userController = require('../controller/UserController')
-const timetableController = require('../controller/TimetableController')
+const timetableController = require('../controller/PositionsController')
 const validator = require('../validator/EntityValidator')
 const TEACHER_ROLE_ID = 2
 

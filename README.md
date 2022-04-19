@@ -24,5 +24,5 @@
 |                    Teacher's groups |       /teachers/:id/groups        |          GET           |  :white_check_mark:  |
 |                               Login |              /login               |          POST          |  :white_check_mark:  |
 |                               Terms |              /terms               | GET, POST, PUT, DELETE |  :white_check_mark:  |
-|                           Timetable |            /timetable             |          GET           |  :white_check_mark:  |
+|                           Positions |            /positions             |          GET           |  :white_check_mark:  |
 |                            Subjects |             /subjects             | GET, POST, PUT, DELETE |  :white_check_mark:  |

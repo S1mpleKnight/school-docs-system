@@ -42,7 +42,7 @@ const Subject = sequelize.define('subject', {
     timestamps: false
 })
 
-const Timetable = sequelize.define('timetable', {
+const Positions = sequelize.define('positions', {
     teacher: {
         type: DataTypes.BIGINT,
         primaryKey: true,
@@ -60,8 +60,14 @@ const Timetable = sequelize.define('timetable', {
             key: 'id'
         }
     },
-    date: {type: DataTypes.DATEONLY, primaryKey: true},
-    lessonNumber: {type: DataTypes.SMALLINT, allowNull: false, unsigned: true, primaryKey: true}
+    term: {
+        type: DataTypes.BIGINT,
+        primaryKey: true,
+        references: {
+            model: Term,
+            key: 'id'
+        }
+    }
 }, {
     freezeTableName: true,
     timestamps: false
@@ -139,18 +145,15 @@ Mark.belongsTo(Term)
 User.hasMany(Skip)
 Skip.belongsTo(User)
 
-Group.hasMany(Timetable)
-Timetable.belongsTo(Group)
+Group.hasMany(Positions)
+Positions.belongsTo(Group)
 
-Timetable.hasOne(Skip)
-Skip.belongsTo(Timetable)
+Positions.hasOne(Skip)
+Skip.belongsTo(Positions)
 
 Group.hasMany(User)
 User.belongsTo(Group)
 
-Term.hasMany(Timetable)
-Timetable.belongsTo(Term)
-
 module.exports = {
-    User, Term, Subject, Timetable, Skip, Role, MarkRole, Mark, Group, Voucher
+    User, Term, Subject, Positions, Skip, Role, MarkRole, Mark, Group, Voucher
 }

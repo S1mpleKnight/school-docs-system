@@ -1,8 +1,8 @@
 const Router = require('express')
 const router = new Router()
-const TimetableController = require('../controller/TimetableController')
+const PositionsController = require('../controller/PositionsController')
 const validator = require('../validator/EntityValidator')
 
-router.get('/', TimetableController.findAll)
+router.get('/', PositionsController.findAll)
 
 module.exports = router

@@ -1,6 +1,6 @@
-const service = require('../service/TimetableService')
+const service = require('../service/PositionService')
 
-class TimetableController {
+class PositionsController {
     async findAll(req, res, next) {
         await service.findAll(req, res, next)
     }
@@ -26,4 +26,4 @@ class TimetableController {
     }
 }
 
-module.exports = new TimetableController()
+module.exports = new PositionsController()
