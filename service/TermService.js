@@ -7,6 +7,7 @@ class TermService {
     async findAll(req, res, next) {
         try {
             const terms = await Term.findAll()
+            console.log('\x1b[32m%s\x1b[0m', `Terms send: ${terms.length} date: ${new Date(Date.now()).toUTCString()}}`)
             return res.json(terms)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the TermService findAll method ${e}`)

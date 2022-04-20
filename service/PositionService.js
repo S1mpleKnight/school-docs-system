@@ -37,6 +37,7 @@ class PositionService {
                     }
                 }
             })
+            console.log('\x1b[32m%s\x1b[0m', `Positions sent: ${result.length} date: ${new Date(Date.now()).toUTCString()}}`)
             return res.json(lessons)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the PositionsController findAll method ${e}`)
@@ -68,6 +69,7 @@ class PositionService {
                     attributes: ['letter', 'number']
                 })
             }
+            console.log('\x1b[32m%s\x1b[0m', `Positions send: ${groups.length} date: ${new Date(Date.now()).toUTCString()}}`)
             return res.json(groups)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the PositionsService findAllGroupByTeacher method ${e}`)

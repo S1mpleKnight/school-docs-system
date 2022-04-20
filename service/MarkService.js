@@ -7,6 +7,7 @@ class MarkService {
     async findAll(req, res, next) {
         try {
             const marks = await Mark.findAll()
+            console.log('\x1b[32m%s\x1b[0m', `Marks send: ${marks.length} date: ${new Date(Date.now()).toUTCString()}}`)
             return res.json(marks)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the MarkService findAll method ${e}`)
@@ -157,6 +158,7 @@ class MarkService {
                 fullMark.date = markInfo.date
                 fullInfo.push(fullMark)
             }
+            console.log('\x1b[32m%s\x1b[0m', `Marks sent: ${fullInfo.length} date: ${new Date(Date.now()).toUTCString()}}`)
             return res.json(fullInfo)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the MarkController findStudentTermMarks method ${e}`)

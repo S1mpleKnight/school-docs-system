@@ -11,6 +11,7 @@ class VoucherService {
                 const {documentUrl, uploadDate, id} = voucher
                 responseBody.push({id, documentUrl, uploadDate})
             }
+            console.log('\x1b[32m%s\x1b[0m', `Vouchers send: ${responseBody.length} date: ${new Date(Date.now()).toUTCString()}}`)
             return res.json(responseBody)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the VoucherController findAll method ${e}`)

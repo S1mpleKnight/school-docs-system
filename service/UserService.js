@@ -65,7 +65,7 @@ class UserService {
                 responseBody.push({id, login, firstName, lastName, middleName, roleName, groupId})
             }
             const students = getFilteredUsers(responseBody, 'STUDENT')
-            console.log('\x1b[32m%s\x1b[0m', `Users send: ${students.length} date: ${Date.now()}`)
+            console.log('\x1b[32m%s\x1b[0m', `Users send: ${students.length} date: ${new Date(Date.now()).toUTCString()}}`)
             return res.json(students)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findAllStudents method ${e}`)
@@ -86,7 +86,7 @@ class UserService {
                 responseBody.push({id, login, firstName, lastName, middleName, roleName, groupId})
             }
             const teachers = getFilteredUsers(responseBody, 'TEACHER')
-            console.log('\x1b[32m%s\x1b[0m', `Users send: ${teachers.length} date: ${Date.now()}`)
+            console.log('\x1b[32m%s\x1b[0m', `Users send: ${teachers.length} date: ${new Date(Date.now()).toUTCString()}}`)
             return res.json(teachers)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findAllTeachers method ${e}`)
@@ -122,7 +122,7 @@ class UserService {
                     result.push({firstName, lastName, middleName})
                 }
             }
-            console.log('\x1b[32m%s\x1b[0m', `Users send: ${result.length} date: ${Date.now()}`)
+            console.log('\x1b[32m%s\x1b[0m', `Users send: ${result.length} date: ${new Date(Date.now()).toUTCString()}}`)
             return res.json(result)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findStudentsByGroup method ${e}`)

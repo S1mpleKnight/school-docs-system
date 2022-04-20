@@ -7,6 +7,7 @@ class SubjectService {
     async findAll(req, res, next) {
         try {
             const subjects = await Subject.findAll()
+            console.log('\x1b[32m%s\x1b[0m', `Subjects send: ${subjects.length} date: ${new Date(Date.now()).toUTCString()}}`)
             return res.json(subjects)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the SubjectController findAll method ${e}`)
