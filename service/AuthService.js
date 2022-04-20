@@ -20,7 +20,7 @@ class AuthService {
             if (!validPassword) {
                 return next(apiError.unauthorized(`Invalid password`))
             }
-            const token = generateAccessToken(user.roleId)
+            const token = generateAccessToken(user.id, user.roleId)
             return res.json({token})
         } catch (e) {
             return next(apiError.badRequest(`Login was failed: ${e.message}`))
