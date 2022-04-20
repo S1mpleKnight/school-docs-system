@@ -20,6 +20,10 @@ class GroupController {
     async update(req, res, next) {
         await service.update(req, res, next)
     }
+
+    async findTeacherGroupsByCurrentTerm(req, res, next) {
+        await service.findTeacherGroupsByCurrentTerm(req, res, next)
+    }
 }
 
 module.exports = new GroupController()

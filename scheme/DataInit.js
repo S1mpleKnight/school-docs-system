@@ -301,6 +301,12 @@ async function init() {
                     groupId: 2,
                     term: 4
                 },
+                {
+                    teacher: 2,
+                    subject: 1,
+                    groupId: 1,
+                    term: 4
+                },
             ]
         )
     } catch (e) {

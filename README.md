@@ -9,7 +9,8 @@
 |------------------------------------:|:---------------------------------:|:----------------------:|:--------------------:|
 |                    List of students |             /students             | GET, POST, PUT, DELETE |  :white_check_mark:  |
 |                      Student rating |         /students/rating          |          GET           | :white_large_square: |
-|                       List of marks |     /marks/:term/students/:id     |          GET           |  :white_check_mark:  |
+|         List of marks for the admin |     /marks/:term/students/:id     |          GET           |  :white_check_mark:  |
+|       List of marks for the student |              /marks               |          GET           |  :white_check_mark:  |
 |            List of academic results |    /students/:id/results/:term    |          GET           | :white_large_square: |
 |       Student marks for the subject | /students/:id/marks/subjects/:id  |          GET           | :white_large_square: |
 | List of marks for the last week (?) | /students/:id/marks/weeks/:number |          GET           | :white_large_square: |
@@ -21,7 +22,8 @@
 |                    List of vouchers |             /vouchers             |       GET, POST        |  :white_check_mark:  |
 |                        Voucher page |           /vouchers/:id           |          GET           |  :white_check_mark:  |
 |                    List of teachers |             /teachers             | GET, POST, PUT, DELETE |  :white_check_mark:  |
-|                    Teacher's groups |       /teachers/:id/groups        |          GET           |  :white_check_mark:  |
+|      Teacher's groups for the admin |       /teachers/:id/groups        |          GET           |  :white_check_mark:  |
+|                    Teacher's groups |          /taught-groups           |          GET           |  :white_check_mark:  |
 |                               Login |              /login               |          POST          |  :white_check_mark:  |
 |                               Terms |              /terms               | GET, POST, PUT, DELETE |  :white_check_mark:  |
 |                           Positions |            /positions             |          GET           |  :white_check_mark:  |

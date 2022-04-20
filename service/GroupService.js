@@ -1,5 +1,6 @@
-const {Group} = require('../models/models')
+const {Group, Positions, Term} = require('../models/models')
 const apiError = require('../error/ApiError')
+const {Op} = require('sequelize')
 const {validationResult} = require('express-validator')
 const parsingErrors = require("../error/ErrorParser");
 
@@ -89,7 +90,7 @@ class GroupService {
             if (number) {
                 group.number = number
             }
-           await Group.update(
+            await Group.update(
                 {
                     "letter": group.letter,
                     "number": group.number
@@ -106,6 +107,59 @@ class GroupService {
             console.log('\x1b[31m%s\x1b[0m', `Error in the GroupService update method ${e}`)
             next(apiError.badRequest(e.message))
         }
+    }
+
+    async findTeacherGroupsByCurrentTerm(req, res, next) {
+        try {
+            const date = new Date()
+            const term = await Term.findOne({
+                where: {
+                    [Op.and]: [
+                        {
+                            startDate: {
+                                [Op.lte]: date
+                            }
+                        },
+                        {
+                            endDate: {
+                                [Op.gte]: date
+                            }
+                        }
+                    ]
+                }
+            })
+            const positions = await Positions.findAll({
+                where: {
+                    [Op.and]: [
+                        {
+                            term: term.id
+                        },
+                        {
+                            teacher: req.userId
+                        }
+                    ]
+                },
+                attributes: ['groupId']
+            })
+            const groupIds = []
+            for (const position of positions.map(p => p.groupId).map(l => l + "")) {
+                groupIds.push(position)
+            }
+            const groups = await Group.findAll({
+                where: {
+                    id: {
+                        [Op.in] : groupIds
+                    }
+                },
+                attributes: ['number', 'letter']
+            })
+            console.log('\x1b[32m%s\x1b[0m', `Groups sent: ${groups.length} date: ${new Date(Date.now()).toUTCString()}`)
+            return res.json(groups)
+        } catch (e) {
+            console.log('\x1b[31m%s\x1b[0m', `Error in the GroupService findTeacherGroupsByCurrentTerm method ${e}`)
+            next(apiError.badRequest(e.message))
+        }
+
     }
 }
 
