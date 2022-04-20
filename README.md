@@ -26,3 +26,4 @@
 |                               Terms |              /terms               | GET, POST, PUT, DELETE |  :white_check_mark:  |
 |                           Positions |            /positions             |          GET           |  :white_check_mark:  |
 |                            Subjects |             /subjects             | GET, POST, PUT, DELETE |  :white_check_mark:  |
+|                             Profile |             /profile              |          GET           |  :white_check_mark:  |

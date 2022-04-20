@@ -297,6 +297,17 @@ class UserService {
             next(apiError.badRequest(e.message))
         }
     }
+
+    async profile(req, res, next) {
+        try {
+            const user = await User.findByPk(req.userId)
+            const {login, firstName, lastName, middleName} = user
+            return res.json({login, firstName, lastName, middleName})
+        } catch (e) {
+            console.log('\x1b[31m%s\x1b[0m', `Error in the UserService profile method ${e}`)
+            next(apiError.badRequest(e.message))
+        }
+    }
 }
 
 module.exports = new UserService()

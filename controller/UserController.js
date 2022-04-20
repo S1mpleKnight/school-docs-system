@@ -40,6 +40,10 @@ class UserController {
     async findStudentsByGroup(req, res, next) {
         await service.findStudentsByGroup(req, res, next)
     }
+
+    async profile(req, res, next) {
+        await service.profile(req, res, next)
+    }
 }
 
 module.exports = new UserController()
