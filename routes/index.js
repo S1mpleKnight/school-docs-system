@@ -22,7 +22,7 @@ router.use('/vouchers', authMiddleware, roleMiddleware('ADMIN'), voucherRouter)
 router.use('/subjects', authMiddleware, roleMiddleware('ADMIN'), subjectRouter)
 router.use('/terms', authMiddleware, roleMiddleware('ADMIN'), termRouter)
 router.use('/positions', authMiddleware, roleMiddleware('ADMIN'), positionsRouter)
-router.use('/marks', authMiddleware, roleMiddleware('ADMIN'), markRouter)
+router.use('/marks', authMiddleware, markRouter)
 router.use('/profile', authMiddleware, roleMiddleware('STUDENT', 'TEACHER', 'ADMIN'), profileRouter)
 
 module.exports = router

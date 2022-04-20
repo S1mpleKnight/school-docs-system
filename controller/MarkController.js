@@ -20,6 +20,10 @@ class MarkController {
     async findStudentTermMarks(req, res, next) {
         await service.findStudentTermMarks(req, res, next)
     }
+
+    async findAllStudentMarks(req, res, next) {
+        await service.findAllStudentMarks(req, res, next)
+    }
 }
 
 module.exports = new MarkController()

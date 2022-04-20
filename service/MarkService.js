@@ -165,6 +165,41 @@ class MarkService {
             next(apiError.badRequest(e.message))
         }
     }
+
+    async findAllStudentMarks(req, res, next) {
+        try {
+            const markList = await Mark.findAll({
+                where: {
+                    student: req.userId
+                }
+            })
+            let fullInfo = []
+            let markInfo;
+            for (markInfo of markList) {
+                let fullMark = {}
+                const subject = await Subject.findOne({
+                    where: {
+                        id: markInfo.subject
+                    }
+                })
+                fullMark.subject = subject.name
+                const teacher = await User.findOne({
+                    where: {
+                        id: markInfo.teacher
+                    }
+                })
+                fullMark.teacher = teacher.firstName + " " + teacher.middleName + " " + teacher.lastName
+                fullMark.value = markInfo.value
+                fullMark.date = markInfo.date
+                fullInfo.push(fullMark)
+            }
+            console.log('\x1b[32m%s\x1b[0m', `Marks sent: ${fullInfo.length} date: ${new Date(Date.now()).toUTCString()}`)
+            return res.json(fullInfo)
+        } catch (e) {
+            console.log('\x1b[31m%s\x1b[0m', `Error in the MarkController findStudentTermMarks method ${e}`)
+            next(apiError.badRequest(e.message))
+        }
+    }
 }
 
 module.exports = new MarkService()

@@ -1,8 +1,9 @@
 const Router = require('express')
 const router = new Router()
 const markController = require('../controller/MarkController')
-const validator = require('../validator/EntityValidator')
+const roleMiddleware = require("../middleware/RoleMiddleware");
 
-router.get('/:term/students/:id', markController.findStudentTermMarks)
+router.get('/:term/students/:id', roleMiddleware('ADMIN'), markController.findStudentTermMarks)
+router.get('/', roleMiddleware('STUDENT'), markController.findAllStudentMarks)
 
 module.exports = router
