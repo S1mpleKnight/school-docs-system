@@ -81,7 +81,7 @@ class GroupService {
             }
             const group = await Group.findOne({where: {"id": req.params.id}})
             if (!group) {
-                return next(apiError.notFound(`Group with id: ${req.params.id} do not exist`))
+                return next(apiError.notFound(`Group with id: ${req.params.id} does not exist`))
             }
             let {letter, number} = req.body
             if (letter) {
