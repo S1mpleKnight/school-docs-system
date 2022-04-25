@@ -114,7 +114,7 @@ class UserService {
             if (!group) {
                 return next(apiError.notFound(`Group with id: ${req.params.id} does not exist`))
             }
-            const students = await User.findAll({where: {"groupId" : req.params.id}})
+            const students = await User.findAll({where: {"groupId": req.params.id}})
             let result = []
             for (let student of students) {
                 if (student.roleId === 3) {
@@ -189,7 +189,7 @@ class UserService {
                 let errorMessages = parsingErrors(errors);
                 return next(apiError.badRequest([...errorMessages]))
             }
-            const teacher = await User.findOne({where: {"id": req.params.id}})
+            const teacher = await User.findByPk(req.params.id)
             if (!teacher || teacher.roleId !== 2) {
                 return next(apiError.notFound(`Teacher with id: ${req.params.id} do not exist`))
             }
@@ -204,12 +204,19 @@ class UserService {
                 teacher.middleName = middleName
             }
             if (login) {
+                const candidate = await User.findOne({where: {"login": login}})
+                if (candidate) {
+                    return next(apiError.unprocessableEntity("User with this login already exists"))
+                }
                 teacher.login = login
             }
-            if (await Group.findOne({where: {"id": groupId}})) {
-                teacher.groupId = groupId
-            } else {
-                return next(apiError.notFound(`Group with id: ${groupId} does not exist`))
+            if (groupId) {
+                const group = await Group.findByPk(groupId)
+                if (group) {
+                    teacher.groupId = group.id
+                } else {
+                    return next(apiError.notFound(`Group with id: ${groupId} does not exist`))
+                }
             }
             if (password) {
                 if (password.length < 10 || password.length > 50) {
@@ -249,7 +256,7 @@ class UserService {
                 let errorMessages = parsingErrors(errors);
                 return next(apiError.badRequest([...errorMessages]))
             }
-            const student = await User.findOne({where: {"id": req.params.id}})
+            const student = await User.findByPk(req.params.id)
             if (!student || student.roleId !== 3) {
                 return next(apiError.notFound(`Student with id: ${req.params.id} do not exist`))
             }
@@ -264,12 +271,19 @@ class UserService {
                 student.middleName = middleName
             }
             if (login) {
+                const candidate = await User.findOne({where: {"login": login}})
+                if (candidate) {
+                    return next(apiError.unprocessableEntity("User with this login already exists"))
+                }
                 student.login = login
             }
-            if (await Group.findOne({where: {"id": groupId}})) {
-                student.groupId = groupId
-            } else {
-                return next(apiError.notFound(`Group with id: ${groupId} does not exist`))
+            if (groupId) {
+                const group = await Group.findByPk(groupId)
+                if (group) {
+                    student.groupId = group.id
+                } else {
+                    return next(apiError.notFound(`Group with id: ${groupId} does not exist`))
+                }
             }
             if (password) {
                 if (password.length < 10 || password.length > 50) {
