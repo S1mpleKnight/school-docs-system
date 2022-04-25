@@ -43,9 +43,14 @@ const Subject = sequelize.define('subject', {
 })
 
 const Positions = sequelize.define('positions', {
+    id: {
+        type: DataTypes.BIGINT,
+        unsigned: true,
+        primaryKey: true,
+        autoIncrement: true
+    },
     teacher: {
         type: DataTypes.BIGINT,
-        primaryKey: true,
         unsigned: true,
         references : {
             model: User,
@@ -54,7 +59,6 @@ const Positions = sequelize.define('positions', {
     },
     subject: {
         type: DataTypes.SMALLINT,
-        primaryKey: true,
         references: {
             model: Subject,
             key: 'id'
@@ -62,7 +66,6 @@ const Positions = sequelize.define('positions', {
     },
     term: {
         type: DataTypes.BIGINT,
-        primaryKey: true,
         references: {
             model: Term,
             key: 'id'

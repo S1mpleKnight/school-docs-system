@@ -9,10 +9,6 @@ class PositionsController {
         await service.create(req, res, next)
     }
 
-    async findById(req, res, next) {
-        await service.findById(req, res, next)
-    }
-
     async update(req, res, next) {
         await service.update(req, res, next)
     }

@@ -61,6 +61,15 @@ function getMarkUpdateValidator() {
     ]
 }
 
+function getPositionsValidator() {
+    return [
+        check('teacher', 'Invalid teacher id').isNumeric(),
+        check('subject', 'Invalid subject id').isNumeric(),
+        check('term', 'Invalid term id').isNumeric(),
+        check('groupId', 'Invalid group id').isNumeric()
+    ]
+}
+
 module.exports = {
     getUserCreationValidator,
     getGroupCreationValidator,
@@ -68,5 +77,6 @@ module.exports = {
     getTermValidator,
     getSubjectValidator,
     getMarkUpdateValidator,
-    getMarkCreationValidator
+    getMarkCreationValidator,
+    getPositionsValidator
 }
