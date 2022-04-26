@@ -24,7 +24,7 @@ router.use('/groups', authMiddleware, groupRouter)
 router.use('/vouchers', authMiddleware, roleMiddleware(ADMIN_STRING_VIEW), voucherRouter)
 router.use('/subjects', authMiddleware, subjectRouter)
 router.use('/terms', authMiddleware, termRouter)
-router.use('/positions', authMiddleware, roleMiddleware(ADMIN_STRING_VIEW), positionsRouter)
+router.use('/positions', authMiddleware, positionsRouter)
 router.use('/marks', authMiddleware, markRouter)
 router.use('/profile', authMiddleware, roleMiddleware(STUDENT_STRING_VIEW, TEACHER_STRING_VIEW, ADMIN_STRING_VIEW), profileRouter)
 
