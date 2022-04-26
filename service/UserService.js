@@ -203,7 +203,7 @@ class UserService {
             if (middleName) {
                 teacher.middleName = middleName
             }
-            if (login) {
+            if (login && login !== teacher.login) {
                 const candidate = await User.findOne({where: {"login": login}})
                 if (candidate) {
                     return next(apiError.unprocessableEntity("User with this login already exists"))
@@ -270,7 +270,7 @@ class UserService {
             if (middleName) {
                 student.middleName = middleName
             }
-            if (login) {
+            if (login && login !== student.login) {
                 const candidate = await User.findOne({where: {"login": login}})
                 if (candidate) {
                     return next(apiError.unprocessableEntity("User with this login already exists"))
