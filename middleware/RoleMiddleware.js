@@ -20,6 +20,7 @@ module.exports = function (...roleNames) {
                 if (roleName === role.dataValues.name) {
                     flag = true
                     req.userId = info.id
+                    req.userRole = role.id
                     next()
                 }
             }

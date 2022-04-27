@@ -2,7 +2,11 @@ const service = require('../service/PositionService')
 
 class PositionsController {
     async findAll(req, res, next) {
-        await service.findAll(req, res, next)
+        if (req.userRole === 1) {
+            await service.findAll(req, res, next)
+        } else if (req.userRole === 2) {
+            await service.findAllPositionsByTeacherCurrentNextTerm(req, res, next)
+        }
     }
 
     async create(req, res, next) {
