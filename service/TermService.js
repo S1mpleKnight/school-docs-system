@@ -100,6 +100,7 @@ class TermService {
                 }
             )
             console.log(`Term with id: ${req.params.id} updated successfully`)
+            term.id = req.params.id
             return res.json(term)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the TermService update method ${e}`)

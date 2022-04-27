@@ -242,6 +242,7 @@ class UserService {
                 }
             )
             console.log(`Teacher with id: ${req.params.id} updated successfully`)
+            teacher.id = req.params.id
             return res.json(teacher)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findById method ${e}`)
@@ -308,6 +309,7 @@ class UserService {
                 }
             )
             console.log(`Student with id: ${req.params.id} updated successfully`)
+            student.id = req.params.id
             return res.json(student)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findById method ${e}`)

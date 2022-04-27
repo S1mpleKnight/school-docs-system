@@ -90,6 +90,7 @@ class SubjectService {
                 }
             )
             console.log(`Subject with id: ${req.params.id} updated successfully`)
+            subject.id = req.params.id
             return res.json(subject)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the subjectService update method ${e}`)
