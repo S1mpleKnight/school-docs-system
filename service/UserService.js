@@ -376,7 +376,7 @@ class UserService {
                         }
                     ]
                 },
-                attributes: ['firstName', 'lastName', 'middleName', 'id']
+                attributes: ['firstName', 'lastName', 'middleName', 'id' ,'groupId']
             })
             console.log('\x1b[32m%s\x1b[0m', `Students sent: ${students.length} date: ${new Date(Date.now()).toUTCString()}`)
             return res.json(students)

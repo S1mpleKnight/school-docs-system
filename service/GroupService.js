@@ -151,7 +151,7 @@ class GroupService {
                         [Op.in] : groupIds
                     }
                 },
-                attributes: ['number', 'letter']
+                attributes: ['number', 'letter', 'id']
             })
             console.log('\x1b[32m%s\x1b[0m', `Groups sent: ${groups.length} date: ${new Date(Date.now()).toUTCString()}`)
             return res.json(groups)
