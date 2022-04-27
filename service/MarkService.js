@@ -13,7 +13,6 @@ class MarkService {
                     "markRoleId": 1
                 }
             })
-
             console.log('\x1b[32m%s\x1b[0m', `Marks send: ${marks.length} date: ${new Date(Date.now()).toUTCString()}}`)
             return res.json(marks)
         } catch (e) {
@@ -31,6 +30,9 @@ class MarkService {
             }
             const teacherId = req.userId
             let {student, subject, date, value, termId} = req.body
+            student = parseInt(student.toString())
+            subject = parseInt(subject.toString())
+            value = parseInt(value.toString())
             if (!await User.findOne({where: {"id": student}})) {
                 return next(apiError.notFound(`Student with id: ${student} does not exist`))
             }
@@ -38,6 +40,7 @@ class MarkService {
                 return next(apiError.notFound(`Subject with id: ${subject} does not exist`))
             }
             if (termId) {
+                termId = parseInt(termId.toString())
                 const term = await Term.findOne({where: {"id": termId}})
                 if (!term) {
                     return next(apiError.notFound(`Term with id: ${termId} does not exist`))
@@ -59,7 +62,7 @@ class MarkService {
 
     async delete(req, res, next) {
         try {
-            const {subject, student, date} = req.body
+            let {subject, student, date} = req.body
             if (!await Subject.findOne({where: {"id": subject}})) {
                 return next(apiError.notFound(`Subject with id: ${id} does not exist`))
             }
@@ -100,12 +103,12 @@ class MarkService {
                 let errorMessages = parsingErrors(errors);
                 return next(apiError.badRequest([...errorMessages]))
             }
-            const {subjectId, studentId, date} = req.body
+            const {subject, student, date} = req.body
             const mark = await Mark.findOne(
                 {
                     where: {
-                        "subject": subjectId,
-                        "student": studentId,
+                        "subject": subject,
+                        "student": student,
                         "date": date
                     }
                 })
@@ -122,8 +125,8 @@ class MarkService {
                 },
                 {
                     where: {
-                        "subject": subjectId,
-                        "student": studentId,
+                        "subject": subject,
+                        "student": student,
                         "date": date
                     }
                 }
