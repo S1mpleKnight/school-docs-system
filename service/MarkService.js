@@ -32,7 +32,7 @@ class MarkService {
             let {student, subject, date, value, termId} = req.body
             student = parseInt(student.toString())
             subject = parseInt(subject.toString())
-            const valueString = parseInt(value.toString())
+            value = parseInt(value.toString())
             if (!await User.findOne({where: {"id": student}})) {
                 return next(apiError.notFound(`Student with id: ${student} does not exist`))
             }
@@ -52,7 +52,7 @@ class MarkService {
             const markRoleId = markRole.id
             const teacher = teacherId
             date = new Date(date)
-            const mark = await Mark.create({date, subject, student, teacher,  valueString, markRoleId, termId})
+            const mark = await Mark.create({date, subject, student, teacher,  value, markRoleId, termId})
             return res.json(mark)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the MarkService creation method ${e}`)
