@@ -52,10 +52,12 @@ const Positions = sequelize.define('positions', {
     teacher: {
         type: DataTypes.BIGINT,
         unsigned: true,
+        allowNull: true,
         references : {
             model: User,
-            key: 'id',
-        }
+            key: 'id'
+        },
+        onDelete: 'CASCADE'
     },
     subject: {
         type: DataTypes.SMALLINT,
@@ -66,6 +68,7 @@ const Positions = sequelize.define('positions', {
     },
     term: {
         type: DataTypes.BIGINT,
+        allowNull: true,
         references: {
             model: Term,
             key: 'id'
@@ -100,16 +103,20 @@ const Mark = sequelize.define('mark', {
         unsigned: true,
         references: {
             model: User,
-            key: 'id'
-        }
+            key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
     },
     teacher: {
         type: DataTypes.BIGINT,
         unsigned: true,
+        allowNull: true,
         references: {
             model: User,
-            key: 'id'
-        }
+            key: 'id',
+        },
+        onDelete: 'SET NULL'
     },
     value: {type: DataTypes.SMALLINT, allowNull: false}
 }, {
@@ -133,7 +140,10 @@ const Skip = sequelize.define('skip', {
     timestamps: false
 })
 
-Skip.hasOne(Voucher)
+Skip.hasOne(Voucher, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+})
 Voucher.belongsTo(Skip)
 
 Role.hasMany(User)
@@ -142,19 +152,28 @@ User.belongsTo(Role)
 MarkRole.hasMany(Mark)
 Mark.belongsTo(MarkRole)
 
-Term.hasMany(Mark)
+Term.hasMany(Mark, {
+    onDelete: 'SET NULL',
+    onUpdate: 'CASCADE',
+})
 Mark.belongsTo(Term)
 
 User.hasMany(Skip)
 Skip.belongsTo(User)
 
-Group.hasMany(Positions)
+Group.hasMany(Positions, {
+    onDelete: 'SET NULL',
+    onUpdate: 'CASCADE',
+})
 Positions.belongsTo(Group)
 
-Positions.hasOne(Skip)
-Skip.belongsTo(Positions)
+// Positions.hasOne(Skip)
+// Skip.belongsTo(Positions)
 
-Group.hasMany(User)
+Group.hasMany(User, {
+    onDelete: 'SET NULL',
+    onUpdate: 'CASCADE',
+})
 User.belongsTo(Group)
 
 module.exports = {
