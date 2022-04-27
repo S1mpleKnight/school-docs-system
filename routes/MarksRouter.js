@@ -7,7 +7,7 @@ const TEACHER_STRING_VIEW = 'TEACHER'
 const STUDENT_STRING_VIEW = 'STUDENT'
 
 router.get('/:term/students/:id', roleMiddleware(ADMIN_STRING_VIEW), markController.findStudentTermMarks)
-router.delete('/delete', roleMiddleware(TEACHER_STRING_VIEW), markController.delete)
+router.delete('/subjects/:subjectId/students/:studentId/:date', roleMiddleware(TEACHER_STRING_VIEW), markController.delete)
 router.get('/', roleMiddleware(STUDENT_STRING_VIEW, TEACHER_STRING_VIEW), markController.findAll)
 router.post('/create', roleMiddleware(TEACHER_STRING_VIEW), markController.create)
 

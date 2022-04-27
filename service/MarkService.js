@@ -62,8 +62,10 @@ class MarkService {
 
     async delete(req, res, next) {
         try {
-            let {subject, student, date} = req.body
-            if (!await Subject.findOne({where: {"id": subject}})) {
+            let {subjectId, studentId, date} = req.params
+            subjectId = parseInt(subjectId.toString())
+            studentId = parseInt(studentId.toString())
+            if (!await Subject.findOne({where: {"id": subjectId}})) {
                 return next(apiError.notFound(`Subject with id: ${id} does not exist`))
             }
             const studentInstance = await User.findOne({where: {"id": student}})
@@ -73,8 +75,8 @@ class MarkService {
             const mark = await Mark.findOne(
                 {
                     where: {
-                        "subject": subject,
-                        "student": student,
+                        "subject": subjectId,
+                        "student": studentId,
                         "date": date
                     }
                 })
@@ -83,8 +85,8 @@ class MarkService {
             }
             await Mark.destroy({
                 where: {
-                    "subject": subject,
-                    "student": student,
+                    "subject": subjectId,
+                    "student": studentId,
                     "date": date
                 }
             })
