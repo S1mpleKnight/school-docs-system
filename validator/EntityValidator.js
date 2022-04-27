@@ -63,10 +63,10 @@ function getMarkUpdateValidator() {
 
 function getPositionsValidator() {
     return [
-        check('teacher', 'Invalid teacher id').isNumeric(),
-        check('subject', 'Invalid subject id').isNumeric(),
-        check('term', 'Invalid term id').isNumeric(),
-        check('groupId', 'Invalid group id').isNumeric()
+        check('teacher', 'Invalid teacher id').not().matches(/[^0-9]/),
+        check('subject', 'Invalid subject id').not().matches(/[^0-9]/),
+        check('term', 'Invalid term id').not().matches(/[^0-9]/),
+        check('groupId', 'Invalid group id').not().matches(/[^0-9]/)
     ]
 }
 
