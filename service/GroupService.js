@@ -101,8 +101,8 @@ class GroupService {
                     }
                 }
             )
-            const message = `Group with id: ${req.params.id} updated successfully`
-            return res.json({message})
+            console.log(`Group with id: ${req.params.id} updated successfully`)
+            return res.json(group)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the GroupService update method ${e}`)
             next(apiError.badRequest(e.message))

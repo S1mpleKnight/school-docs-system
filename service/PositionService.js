@@ -225,8 +225,8 @@ class PositionService {
                         "id": req.params.id
                     }
                 })
-            const message = `Position with id: ${req.params.id} updated successfully`
-            return res.json({message})
+            console.log(`Position with id: ${req.params.id} updated successfully`)
+            return res.json(position)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the PositionsService create method ${e}`)
             next(apiError.badRequest(e.message))

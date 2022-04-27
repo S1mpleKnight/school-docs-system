@@ -226,7 +226,7 @@ class UserService {
                 }
                 teacher.passwordHash = bcrypt.hashSync(password, SALT_ROUNDS)
             }
-            const result = await User.update(
+            await User.update(
                 {
                     "firstName": teacher.firstName,
                     "lastName": teacher.lastName,
@@ -241,9 +241,8 @@ class UserService {
                     }
                 }
             )
-            console.log('\x1b[31m%s\x1b[0m', result)
-            const message = `Teacher with id: ${req.params.id} updated successfully`
-            return res.json({message})
+            console.log(`Teacher with id: ${req.params.id} updated successfully`)
+            return res.json(teacher)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findById method ${e}`)
             next(apiError.badRequest(e.message))
@@ -308,8 +307,8 @@ class UserService {
                     }
                 }
             )
-            const message = `Student with id: ${req.params.id} updated successfully`
-            return res.json({message})
+            console.log(`Student with id: ${req.params.id} updated successfully`)
+            return res.json(student)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findById method ${e}`)
             next(apiError.badRequest(e.message))

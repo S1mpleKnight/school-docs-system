@@ -99,8 +99,8 @@ class TermService {
                     }
                 }
             )
-            const message = `Term with id: ${req.params.id} updated successfully`
-            return res.json({message})
+            console.log(`Term with id: ${req.params.id} updated successfully`)
+            return res.json(term)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the TermService update method ${e}`)
             next(apiError.badRequest(e.message))

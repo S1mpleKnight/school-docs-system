@@ -89,8 +89,8 @@ class SubjectService {
                     }
                 }
             )
-            const message = `Subject with id: ${req.params.id} updated successfully`
-            return res.json({message})
+            console.log(`Subject with id: ${req.params.id} updated successfully`)
+            return res.json(subject)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the subjectService update method ${e}`)
             next(apiError.badRequest(e.message))
