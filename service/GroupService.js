@@ -159,7 +159,6 @@ class GroupService {
             console.log('\x1b[31m%s\x1b[0m', `Error in the GroupService findTeacherGroupsByCurrentTerm method ${e}`)
             next(apiError.badRequest(e.message))
         }
-
     }
 }
 

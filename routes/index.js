@@ -19,7 +19,7 @@ const STUDENT_STRING_VIEW = 'STUDENT'
 router.post('/login', authController.login)
 
 router.use('/teachers', authMiddleware, roleMiddleware(ADMIN_STRING_VIEW), teacherRouter)
-router.use('/students', authMiddleware, roleMiddleware(ADMIN_STRING_VIEW), studentRouter)
+router.use('/students', authMiddleware, studentRouter)
 router.use('/groups', authMiddleware, groupRouter)
 router.use('/vouchers', authMiddleware, roleMiddleware(ADMIN_STRING_VIEW), voucherRouter)
 router.use('/subjects', authMiddleware, subjectRouter)

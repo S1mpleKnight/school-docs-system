@@ -44,6 +44,10 @@ class UserController {
     async profile(req, res, next) {
         await service.profile(req, res, next)
     }
+
+    async findStudentsByTeacher(req, res, next) {
+        await service.findStudentsByTeacher(req, res, next)
+    }
 }
 
 module.exports = new UserController()

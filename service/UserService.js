@@ -1,9 +1,10 @@
-const {User, Role, Group} = require('../models/models')
+const {User, Role, Group, Term, Positions} = require('../models/models')
 const apiError = require('../error/ApiError')
 const {validationResult} = require('express-validator')
 const bcrypt = require('bcrypt')
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS, 10)
 const parsingErrors = require('../error/ErrorParser')
+const {Op} = require("sequelize");
 
 function getFilteredUsers(users, roleName) {
     let filteredUsers = [];
@@ -322,6 +323,65 @@ class UserService {
             return res.json({login, firstName, lastName, middleName})
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the UserService profile method ${e}`)
+            next(apiError.badRequest(e.message))
+        }
+    }
+
+    async findStudentsByTeacher(req, res, next) {
+        try {
+            const date = new Date()
+            const term = await Term.findOne({
+                where: {
+                    [Op.and]: [
+                        {
+                            startDate: {
+                                [Op.lte]: date
+                            }
+                        },
+                        {
+                            endDate: {
+                                [Op.gte]: date
+                            }
+                        }
+                    ]
+                }
+            })
+            const positions = await Positions.findAll({
+                where: {
+                    [Op.and]: [
+                        {
+                            term: term.id
+                        },
+                        {
+                            teacher: req.userId
+                        }
+                    ]
+                },
+                attributes: ['groupId']
+            })
+            const groupIds = []
+            for (const position of positions.map(p => p.groupId).map(l => l + "")) {
+                groupIds.push(position)
+            }
+            const students = await User.findAll({
+                where: {
+                    [Op.and] : [
+                        {
+                            groupId: {
+                                [Op.in] : groupIds
+                            }
+                        },
+                        {
+                            roleId: 3
+                        }
+                    ]
+                },
+                attributes: ['firstName', 'lastName', 'middleName', 'id']
+            })
+            console.log('\x1b[32m%s\x1b[0m', `Students sent: ${students.length} date: ${new Date(Date.now()).toUTCString()}`)
+            return res.json(students)
+        } catch (e) {
+            console.log('\x1b[31m%s\x1b[0m', `Error in the UserService findStudentsByTeacher method ${e}`)
             next(apiError.badRequest(e.message))
         }
     }
