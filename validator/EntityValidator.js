@@ -42,11 +42,11 @@ function getSubjectValidator() {
 
 function getMarkCreationValidator() {
     return [
-        check('studentId', 'Invalid student id').isNumeric(),
-        check('teacherId', 'Invalid teacher id').isNumeric(),
-        check('markRoleId', 'Invalid mark role id').isNumeric(),
-        check('subjectId', 'Invalid subject id').isNumeric(),
-        check('termId', 'Invalid term id').isNumeric(),
+        check('student', 'Invalid student id').isNumeric(),
+        check('teacher', 'Invalid teacher id').isNumeric(),
+        check('markRole', 'Invalid mark role id').isNumeric(),
+        check('subject', 'Invalid subject id').isNumeric(),
+        check('term', 'Invalid term id').isNumeric(),
         check('value', 'Invalid mark value').isNumeric().isLength({max: 2, min: 1}),
         check('date', 'Invalid date ').isDate()
     ]

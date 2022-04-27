@@ -1,4 +1,7 @@
 const service = require('../service/MarkService')
+const {User} = require('../models/models')
+// const jwt = require("jsonwebtoken");
+// const SECRET = process.env.SECRET
 
 class MarkController {
     async findAll(req, res, next) {
@@ -21,9 +24,17 @@ class MarkController {
         await service.findStudentTermMarks(req, res, next)
     }
 
-    async findAllStudentMarks(req, res, next) {
+    async findTeachersMarksCurrentTerm(req, res, next) {
+        await service.findTeachersMarksCurrentTerm(req, res, next)
+    }
+
+    async findMarks(req, res, next) {
+        const user = User.findOne({where: {"id": req.userId}})
+        console.log("its here" + user.roleId)
         await service.findAllStudentMarks(req, res, next)
     }
+
+
 }
 
 module.exports = new MarkController()
