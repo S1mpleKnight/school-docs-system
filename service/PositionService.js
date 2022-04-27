@@ -226,6 +226,7 @@ class PositionService {
                     }
                 })
             console.log(`Position with id: ${req.params.id} updated successfully`)
+            position.id = req.params.id
             return res.json(position)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the PositionsService create method ${e}`)

@@ -102,6 +102,7 @@ class GroupService {
                 }
             )
             console.log(`Group with id: ${req.params.id} updated successfully`)
+            group.id = req.param.id
             return res.json(group)
         } catch (e) {
             console.log('\x1b[31m%s\x1b[0m', `Error in the GroupService update method ${e}`)
